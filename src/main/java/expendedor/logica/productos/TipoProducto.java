@@ -1,4 +1,4 @@
-package expendedor.logica.enumeraciones;
+package expendedor.logica.productos;
 
 /**
  * Enum de tipo de producto

@@ -1,4 +1,4 @@
-package expendedor.logica.productos.dulce;
+package expendedor.logica.productos;
 
 /**
  * Clase abstracta que representa un Producto de tipo Super8.

@@ -1,6 +1,4 @@
-package expendedor.logica.productos.bebida;
-
-import expendedor.logica.productos.Producto;
+package expendedor.logica.productos;
 
 /**
  * Clase abstracta que representa una Bebida

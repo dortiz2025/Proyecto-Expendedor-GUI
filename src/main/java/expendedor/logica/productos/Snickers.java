@@ -1,4 +1,4 @@
-package expendedor.logica.productos.dulce;
+package expendedor.logica.productos;
 
 /**
  * Clase de un Producto de tipo Snickers

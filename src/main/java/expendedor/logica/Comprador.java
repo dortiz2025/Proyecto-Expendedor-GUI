@@ -1,6 +1,5 @@
 package expendedor.logica;
 
-import expendedor.logica.enumeraciones.*;
 import expendedor.logica.excepciones.*;
 import expendedor.logica.monedas.*;
 import expendedor.logica.productos.*;

@@ -1,6 +1,4 @@
-package expendedor.logica.productos.dulce;
-
-import expendedor.logica.productos.Producto;
+package expendedor.logica.productos;
 
 /**
  * Clase abstracta que representa un Producto de tipo Dulce.

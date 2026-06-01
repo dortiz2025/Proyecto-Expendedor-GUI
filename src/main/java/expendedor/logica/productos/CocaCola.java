@@ -1,4 +1,4 @@
-package expendedor.logica.productos.bebida;
+package expendedor.logica.productos;
 
 /**
  * Clase que representa un producto de tipo CocaCola

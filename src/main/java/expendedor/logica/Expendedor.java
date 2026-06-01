@@ -1,11 +1,8 @@
 package expendedor.logica;
 
-import expendedor.logica.enumeraciones.*;
 import expendedor.logica.excepciones.*;
 import expendedor.logica.monedas.*;
-import expendedor.logica.productos.Producto;
-import expendedor.logica.productos.bebida.*;
-import expendedor.logica.productos.dulce.*;
+import expendedor.logica.productos.*;
 
 /**
  * Expendedora que almacena depósitos de productos y de monedas para el vuelto
