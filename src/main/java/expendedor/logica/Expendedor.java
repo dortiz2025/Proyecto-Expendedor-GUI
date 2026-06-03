@@ -17,13 +17,15 @@ public class Expendedor {
     private Deposito<Dulce> depSuper8;
     private Deposito<Dulce> depOreo;
     private Deposito<Dulce> depSnickers;
-    private Producto productoComprado; //Espacio Único
+    private Producto ProductoComprado; //Espacio Único
 
     //Depósitos de monedas
     private Deposito<Moneda> depMoneda;//INUTILIZABLE - ELIMINAR
     private Deposito<Moneda> depSaldo;//Monedas Ingresadas antes de comprarProducto
     private ArrayList<Deposito<Moneda>> depGanancias;
     private Deposito<Moneda> depVuelto;
+
+    //Variables que almacenan datos importantes...
 
     /**
      * Constructor de la clase Expendedor
@@ -63,50 +65,61 @@ public class Expendedor {
      * Se simula la compra de un producto validando la moneda ingresada y el stock
      * Si la compra es exitosa, guarda el vuelto en monedas de 100 en su depósito
      * De lo contrario, devuelve la moneda original al depósito de vuelto
-     * @param moneda que ocupa el Comprador
      * @param tipo constante indica el tipo de producto que se quiere comprar
-     * @return el producto que se compró
      * @throws PagoIncorrectoException si la moneda es nula
      * @throws PagoInsuficienteException si al Comprador no le alcanza para pagar el producto
      * @throws NoHayProductoException si no hay suficiente stock del producto que se quiere comprar
      */
-    public void comprarProducto(Moneda moneda, TipoProducto tipo) throws PagoIncorrectoException, PagoInsuficienteException, NoHayProductoException {
+    public void comprarProducto(TipoProducto tipo) throws PagoIncorrectoException, PagoInsuficienteException, NoHayProductoException {
+        //Variables temporales
+        int saldo = 0; //Saldo del cliente
+        Deposito<Moneda> depTemp = new Deposito<>();//Deposito temporal de monedas
+        Moneda moneda; //Variable auxiliar para whiles
 
-        if (moneda == null) {
-             throw new PagoIncorrectoException("Pago incorrecto");
+        //Contamos cuanto dinero entregó el usuario
+        while ((moneda = depSaldo.get()) != null) {
+            saldo += moneda.getValor();
+            depTemp.add(moneda);
         }
 
-        if (moneda.getValor() < tipo.getPrecio()) {
-            depVuelto.add(moneda);
+        //Si no le alcanza...
+        if (saldo < tipo.getPrecio()) {
+            while((moneda = depTemp.get()) != null) {
+                depVuelto.add(moneda);
+            }
             throw new PagoInsuficienteException("Dinero insuficiente.");
         }
 
+        //Se procesa la compra...
+        Producto producto;
         switch (tipo) {
-            case COCACOLA -> productoComprado = depCoca.get();
-            case FANTA -> productoComprado = depFanta.get();
-            case SPRITE -> productoComprado = depSprite.get();
-            case SUPER8 -> productoComprado = depSuper8.get();
-            case OREO -> productoComprado = depOreo.get();
-            case SNICKERS -> productoComprado = depSnickers.get();
+            case COCACOLA -> producto = depCoca.get();
+            case FANTA -> producto = depFanta.get();
+            case SPRITE -> producto = depSprite.get();
+            case SUPER8 -> producto = depSuper8.get();
+            case OREO -> producto = depOreo.get();
+            case SNICKERS -> producto = depSnickers.get();
             default -> {
-                depMoneda.add(moneda);
+                while((moneda = depTemp.get()) != null) {
+                    depVuelto.add(moneda);
+                }
                 throw new NoHayProductoException("Tipo de producto no válido");
             }
         }
 
-        if (productoComprado == null){
-            depVuelto.add(moneda);
+        //Si no quedaba el producto solicitado...
+        if (producto == null){
+            while((moneda = depTemp.get()) != null) {
+                depVuelto.add(moneda);
+            }
             throw new NoHayProductoException("Sin stock");
         }
 
-        int vuelto = moneda.getValor() - tipo.getPrecio();
-        int cantidadMonedas100 = (vuelto/100);
+        //Se entrega el vuelto
+        int vuelto = saldo - tipo.getPrecio();
+        //  FALTA LOGICA DE DAR VUELTO EN DIFERENTES TIPOS DE MONEDAS
 
-        for (int i = 0; i < cantidadMonedas100; i++) {
-            depMoneda.add(new Moneda100());
-        }
-
-        this.productoComprado = productoComprado;
+        this.ProductoComprado = producto;
     }
 
     public void insertarMoneda(Moneda moneda) {
@@ -114,7 +127,7 @@ public class Expendedor {
     }
 
     public Producto getProductoComprado() {
-        return productoComprado;
+        return ProductoComprado;
     }
 
     /**
