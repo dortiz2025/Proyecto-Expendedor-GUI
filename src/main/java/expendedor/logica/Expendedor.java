@@ -95,7 +95,7 @@ public class Expendedor {
         }
 
         if (productoComprado == null){
-            depMoneda.add(moneda);
+            depVuelto.add(moneda);
             throw new NoHayProductoException("Sin stock");
         }
 
@@ -107,6 +107,14 @@ public class Expendedor {
         }
 
         this.productoComprado = productoComprado;
+    }
+
+    public void insertarMoneda(Moneda moneda) {
+        depSaldo.add(moneda);
+    }
+
+    public Producto getProductoComprado() {
+        return productoComprado;
     }
 
     /**
