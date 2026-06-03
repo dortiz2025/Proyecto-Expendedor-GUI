@@ -63,15 +63,13 @@ public class Expendedor {
     }
 
     /**
-     * Se simula la compra de un producto validando la moneda ingresada y el stock
-     * Si la compra es exitosa, guarda el vuelto en monedas de 100 en su depósito
-     * De lo contrario, devuelve la moneda original al depósito de vuelto
+     * Se simula la compra de un producto.
+     * En una compra exitosa se calcula el vuelto en diferentes tipos de monedas.
      * @param tipo constante indica el tipo de producto que se quiere comprar
-     * @throws PagoIncorrectoException si la moneda es nula
      * @throws PagoInsuficienteException si al Comprador no le alcanza para pagar el producto
      * @throws NoHayProductoException si no hay suficiente stock del producto que se quiere comprar
      */
-    public void comprarProducto(TipoProducto tipo) throws PagoIncorrectoException, PagoInsuficienteException, NoHayProductoException {
+    public void comprarProducto(TipoProducto tipo) throws PagoInsuficienteException, NoHayProductoException {
         //Variables temporales
         int saldo = 0; //Saldo del cliente
         Deposito<Moneda> depTemp = new Deposito<>();//Deposito temporal de monedas
@@ -118,18 +116,29 @@ public class Expendedor {
 
         //VUELTO EN DIFERENTES TIPOS DE MONEDAS
         int vuelto = saldo - tipo.getPrecio();
-        entregaVuelto(vuelto, depVuelto); //Metodo interno para modularizar código
+        if (vuelto > 0) {
+            entregarVuelto(vuelto, depVuelto); //Metodo interno
+        }
 
         this.ProductoComprado = producto;
     }
 
+    /**
+     * Insertar monedas al saldo de la expendedora.
+     * @param moneda moneda para sumar al saldo
+     * @throws PagoIncorrectoException si se ingresa una moneda falsa (nula)
+     */
     public void insertarMoneda(Moneda moneda) throws PagoIncorrectoException {
         if (moneda == null) {
-            throw new PagoIncorrectoException("No puede ingresar una moneda falsa");//Excepción Inútil
+            throw new PagoIncorrectoException("No puede ingresar una moneda falsa (nula)");//Excepción Inútil
         }
         depSaldo.add(moneda);
     }
 
+    /**
+     * Sacar producto comprado.
+     * @return producto comprado
+     */
     public Producto getProductoComprado() {
         Producto aux = this.ProductoComprado;
         this.ProductoComprado = null; //Dejamos el depósito especial vacío
@@ -144,7 +153,13 @@ public class Expendedor {
         return depMoneda.get();
     }
 
-    private void entregaVuelto(int vuelto, Deposito<Moneda> depVuelto) {
+    /**
+     * Calcula el vuelto en distintos tipos de monedas.
+     * Añade monedas en el depósito correspondiente.
+     * @param vuelto vuelto que deberían sumar las monedas
+     * @param depVuelto referencia del depósito de vuelto
+     */
+    private void entregarVuelto(int vuelto, Deposito<Moneda> depVuelto) {
         //--- PROCESO ENTREGA VUELTO ---//
         int[] valores = {1500, 1000, 500, 100}; //Lista auxiliar (Monedas mayor a menor)
 
