@@ -21,7 +21,6 @@ public class Expendedor {
     private Producto ProductoComprado; //Espacio Único
 
     //Depósitos de monedas
-    private Deposito<Moneda> depMoneda;//INUTILIZABLE - ELIMINAR
     private Deposito<Moneda> depSaldo;//Monedas Ingresadas antes de comprarProducto
     private List<Deposito<Moneda>> depGanancias;
     private Deposito<Moneda> depVuelto;
@@ -41,7 +40,6 @@ public class Expendedor {
         this.depSuper8 = new Deposito<>();
         this.depOreo = new Deposito<>();
         this.depSnickers = new Deposito<>();
-        this.depMoneda = new Deposito<>();
 
         //Se agregan productos a los depósitos
         for (int i = 0; i < cantidadProductos; i++) {
@@ -57,7 +55,7 @@ public class Expendedor {
         this.depSaldo = new Deposito<>();
         this.depGanancias = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
-            depGanancias.add(new Deposito<Moneda>());
+            depGanancias.add(new Deposito<>());
         }
         this.depVuelto = new Deposito<>();
     }
@@ -146,11 +144,11 @@ public class Expendedor {
     }
 
     /**
-     * Sacar las monedas de vuelto
-     * @return una Moneda de 100 pesos
+     * Sacar las monedas del depósito de vuelto.
+     * @return moneda que queda en el depósito
      */
     public Moneda getVuelto() {
-        return depMoneda.get();
+        return depVuelto.get();//Una por una
     }
 
     /**
