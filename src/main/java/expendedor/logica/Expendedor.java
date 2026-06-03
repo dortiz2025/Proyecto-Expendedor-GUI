@@ -4,7 +4,6 @@ import expendedor.logica.excepciones.*;
 import expendedor.logica.monedas.*;
 import expendedor.logica.productos.*;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,18 +13,18 @@ import java.util.List;
  */
 public class Expendedor {
     //Depósitos de productos
-    private Deposito<Bebida> depCoca;
-    private Deposito<Bebida> depSprite;
-    private Deposito<Bebida> depFanta;
-    private Deposito<Dulce> depSuper8;
-    private Deposito<Dulce> depOreo;
-    private Deposito<Dulce> depSnickers;
+    private final Deposito<Bebida> depCoca;
+    private final Deposito<Bebida> depSprite;
+    private final Deposito<Bebida> depFanta;
+    private final Deposito<Dulce> depSuper8;
+    private final Deposito<Dulce> depOreo;
+    private final Deposito<Dulce> depSnickers;
     private Producto ProductoComprado; //Espacio Único
 
     //Depósitos de monedas
-    private Deposito<Moneda> depSaldo;//Monedas Ingresadas antes de comprarProducto
-    private List<Deposito<Moneda>> depGanancias;
-    private Deposito<Moneda> depVuelto;
+    private final Deposito<Moneda> depSaldo;//Monedas Ingresadas antes de comprarProducto
+    private final List<Deposito<Moneda>> depGanancias;
+    private final Deposito<Moneda> depVuelto;
 
     //Variables que almacenan datos importantes...
 
@@ -123,7 +122,7 @@ public class Expendedor {
                 addOrdenado(moneda, depGanancias);
             }
         }
-        //Se añade
+        //Se añaden monedas correspondientes al costo del producto
         else {
             List<Moneda> ganancias = calcularMonedas(precioProducto);
             for(Moneda m : ganancias) {
@@ -175,12 +174,7 @@ public class Expendedor {
         return depVuelto.get();//Una por una
     }
 
-    /**
-     * Entrega una lista con monedas de acuerdo a un monto.
-     * Se entrega la menor cantidad de monedas posibles.
-     * @param monto monto que deberían sumar las monedas
-     * @return arraylist con las monedas
-     */
+    //Metodo interno que calcula eficientemente cuantas monedas (de diferente tipo) suman cierto monto.
     private List<Moneda> calcularMonedas(int monto) {
         int[] valores = {1500, 1000, 500, 100}; //Lista auxiliar (Monedas mayor a menor)
         List<Moneda> monedas = new ArrayList<>(); //ArrayList con las monedas
@@ -205,11 +199,7 @@ public class Expendedor {
         return monedas;
     }
 
-    /**
-     * Añade las ganancias ordenadas al arraylist depósito de ganancias.
-     * @param moneda moneda que se ingresará
-     * @param depGanancias referencia del arraylist
-     */
+    //Metodo interno que añade las ganancias ordenadas al arraylist depósito de ganancias.
     private void addOrdenado(Moneda moneda, List<Deposito<Moneda>> depGanancias) {
         switch (moneda.getValor()) {
             case 1500 -> depGanancias.get(0).add(moneda);
