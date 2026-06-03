@@ -123,12 +123,17 @@ public class Expendedor {
         this.ProductoComprado = producto;
     }
 
-    public void insertarMoneda(Moneda moneda) {
+    public void insertarMoneda(Moneda moneda) throws PagoIncorrectoException {
+        if (moneda == null) {
+            throw new PagoIncorrectoException("No puede ingresar una moneda falsa");//Excepción Inútil
+        }
         depSaldo.add(moneda);
     }
 
     public Producto getProductoComprado() {
-        return ProductoComprado;
+        Producto aux = this.ProductoComprado;
+        this.ProductoComprado = null; //Dejamos el depósito especial vacío
+        return aux;
     }
 
     /**
