@@ -3,6 +3,8 @@ package expendedor.logica;
 import expendedor.logica.excepciones.*;
 import expendedor.logica.monedas.*;
 import expendedor.logica.productos.*;
+
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -112,12 +114,34 @@ public class Expendedor {
             throw new NoHayProductoException("Sin stock");
         }
 
+        //------COMPRA EXITOSA------//
+        int precioProducto = tipo.getPrecio();
+
+        //Se añaden todas las monedas ingresadas a las ganancias.
+        if (precioProducto == saldo) {
+            while((moneda = depTemp.get()) != null) {
+                addOrdenado(moneda, depGanancias);
+            }
+        }
+        //Se añade
+        else {
+            List<Moneda> ganancias = calcularMonedas(precioProducto);
+            for(Moneda m : ganancias) {
+                addOrdenado(m, depGanancias);
+            }
+        }
+        //--------------------------//
+
         //VUELTO EN DIFERENTES TIPOS DE MONEDAS
         int vuelto = saldo - tipo.getPrecio();
         if (vuelto > 0) {
-            entregarVuelto(vuelto, depVuelto); //Metodo interno
+            List<Moneda> monedasVuelto = calcularMonedas(vuelto);
+            for(Moneda m : monedasVuelto){
+               depVuelto.add(m);
+            }
         }
 
+        //Se deja el producto comprado en su respectivo depósito
         this.ProductoComprado = producto;
     }
 
@@ -152,32 +176,47 @@ public class Expendedor {
     }
 
     /**
-     * Calcula el vuelto en distintos tipos de monedas.
-     * Añade monedas en el depósito correspondiente.
-     * @param vuelto vuelto que deberían sumar las monedas
-     * @param depVuelto referencia del depósito de vuelto
+     * Entrega una lista con monedas de acuerdo a un monto.
+     * Se entrega la menor cantidad de monedas posibles.
+     * @param monto monto que deberían sumar las monedas
+     * @return arraylist con las monedas
      */
-    private void entregarVuelto(int vuelto, Deposito<Moneda> depVuelto) {
-        //--- PROCESO ENTREGA VUELTO ---//
+    private List<Moneda> calcularMonedas(int monto) {
         int[] valores = {1500, 1000, 500, 100}; //Lista auxiliar (Monedas mayor a menor)
+        List<Moneda> monedas = new ArrayList<>(); //ArrayList con las monedas
 
         for (int valor : valores) {
-            int cantidadMonedas = vuelto / valor; //Se calcula cuantas monedas de cada tipo podemos entregar
+            int cantidadMonedas = monto / valor; //Se entrega la menor cantidad de monedas posibles.
 
             if (cantidadMonedas > 0) {
-                vuelto %= valor; // Actualizamos el vuelto restante
+                monto %= valor; // Actualizamos el monto restante
 
                 for (int i = 0; i < cantidadMonedas; i++) {
                     //Añadimos monedas según el tipo
                     switch (valor) {
-                        case 1500 -> depVuelto.add(new Moneda1500());
-                        case 1000 -> depVuelto.add(new Moneda1000());
-                        case 500  -> depVuelto.add(new Moneda500());
-                        case 100  -> depVuelto.add(new Moneda100());
+                        case 1500 -> monedas.add(new Moneda1500());
+                        case 1000 -> monedas.add(new Moneda1000());
+                        case 500  -> monedas.add(new Moneda500());
+                        case 100  -> monedas.add(new Moneda100());
                     }
                 }
             }
         }
-        //---FIN ENTREGA DE VUELTO---//
+        return monedas;
+    }
+
+    /**
+     * Añade las ganancias ordenadas al arraylist depósito de ganancias.
+     * @param moneda moneda que se ingresará
+     * @param depGanancias referencia del arraylist
+     */
+    private void addOrdenado(Moneda moneda, List<Deposito<Moneda>> depGanancias) {
+        switch (moneda.getValor()) {
+            case 1500 -> depGanancias.get(0).add(moneda);
+            case 1000 -> depGanancias.get(1).add(moneda);
+            case 500 -> depGanancias.get(2).add(moneda);
+            case 100 -> depGanancias.get(3).add(moneda);
+            default -> {}
+        }
     }
 }
