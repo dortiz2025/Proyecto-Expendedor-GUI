@@ -4,6 +4,7 @@ import expendedor.logica.excepciones.*;
 import expendedor.logica.monedas.*;
 import expendedor.logica.productos.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Expendedora que almacena depósitos de productos y de monedas para el vuelto
@@ -22,7 +23,7 @@ public class Expendedor {
     //Depósitos de monedas
     private Deposito<Moneda> depMoneda;//INUTILIZABLE - ELIMINAR
     private Deposito<Moneda> depSaldo;//Monedas Ingresadas antes de comprarProducto
-    private ArrayList<Deposito<Moneda>> depGanancias;
+    private List<Deposito<Moneda>> depGanancias;
     private Deposito<Moneda> depVuelto;
 
     //Variables que almacenan datos importantes...
@@ -74,7 +75,7 @@ public class Expendedor {
         //Variables temporales
         int saldo = 0; //Saldo del cliente
         Deposito<Moneda> depTemp = new Deposito<>();//Deposito temporal de monedas
-        Moneda moneda; //Variable auxiliar para whiles
+        Moneda moneda; //Variable auxiliar para ciclos while
 
         //Contamos cuanto dinero entregó el usuario
         while ((moneda = depSaldo.get()) != null) {
@@ -115,9 +116,9 @@ public class Expendedor {
             throw new NoHayProductoException("Sin stock");
         }
 
-        //Se entrega el vuelto
+        //VUELTO EN DIFERENTES TIPOS DE MONEDAS
         int vuelto = saldo - tipo.getPrecio();
-        //  FALTA LOGICA DE DAR VUELTO EN DIFERENTES TIPOS DE MONEDAS
+        entregaVuelto(vuelto, depVuelto); //Metodo interno para modularizar código
 
         this.ProductoComprado = producto;
     }
@@ -136,5 +137,29 @@ public class Expendedor {
      */
     public Moneda getVuelto() {
         return depMoneda.get();
+    }
+
+    private void entregaVuelto(int vuelto, Deposito<Moneda> depVuelto) {
+        //--- PROCESO ENTREGA VUELTO ---//
+        int[] valores = {1500, 1000, 500, 100}; //Lista auxiliar (Monedas mayor a menor)
+
+        for (int valor : valores) {
+            int cantidadMonedas = vuelto / valor; //Se calcula cuantas monedas de cada tipo podemos entregar
+
+            if (cantidadMonedas > 0) {
+                vuelto %= valor; // Actualizamos el vuelto restante
+
+                for (int i = 0; i < cantidadMonedas; i++) {
+                    //Añadimos monedas según el tipo
+                    switch (valor) {
+                        case 1500 -> depVuelto.add(new Moneda1500());
+                        case 1000 -> depVuelto.add(new Moneda1000());
+                        case 500  -> depVuelto.add(new Moneda500());
+                        case 100  -> depVuelto.add(new Moneda100());
+                    }
+                }
+            }
+        }
+        //---FIN ENTREGA DE VUELTO---//
     }
 }
