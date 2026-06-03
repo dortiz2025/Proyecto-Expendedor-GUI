@@ -3,26 +3,35 @@ package expendedor.logica;
 import expendedor.logica.excepciones.*;
 import expendedor.logica.monedas.*;
 import expendedor.logica.productos.*;
+import java.util.ArrayList;
 
 /**
  * Expendedora que almacena depósitos de productos y de monedas para el vuelto
  * Procesa las compras, valida el pago y da el vuelto correspondiente
  */
 public class Expendedor {
+    //Depósitos de productos
     private Deposito<Bebida> depCoca;
     private Deposito<Bebida> depSprite;
     private Deposito<Bebida> depFanta;
     private Deposito<Dulce> depSuper8;
     private Deposito<Dulce> depOreo;
     private Deposito<Dulce> depSnickers;
-    private Deposito<Moneda> depMoneda;
+    private Producto productoComprado; //Espacio Único
+
+    //Depósitos de monedas
+    private Deposito<Moneda> depMoneda;//INUTILIZABLE - ELIMINAR
+    private Deposito<Moneda> depSaldo;//Monedas Ingresadas antes de comprarProducto
+    private ArrayList<Deposito<Moneda>> depGanancias;
+    private Deposito<Moneda> depVuelto;
 
     /**
      * Constructor de la clase Expendedor
      * Inicializa los depósitos y los llena
-     * @param cantidad con la que se llenará cada depósito
+     * @param cantidadProductos con la que se llenará cada depósito
      */
-    public Expendedor(int cantidad) {
+    public Expendedor(int cantidadProductos) {
+        //Se inicializan los depósitos de productos
         this.depCoca = new Deposito<>();
         this.depSprite = new Deposito<>();
         this.depFanta = new Deposito<>();
@@ -31,7 +40,8 @@ public class Expendedor {
         this.depSnickers = new Deposito<>();
         this.depMoneda = new Deposito<>();
 
-        for (int i = 0; i < cantidad; i++) {
+        //Se agregan productos a los depósitos
+        for (int i = 0; i < cantidadProductos; i++) {
             this.depCoca.add(new CocaCola(100 + i));
             this.depSprite.add(new Sprite(200 + i));
             this.depFanta.add(new Fanta(300 + i));
@@ -39,6 +49,14 @@ public class Expendedor {
             this.depOreo.add(new Oreo(500 + i));
             this.depSnickers.add(new Snickers(600 + i));
         }
+
+        //Se inicializan los depósitos de monedas
+        this.depSaldo = new Deposito<>();
+        this.depGanancias = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            depGanancias.add(new Deposito<Moneda>());
+        }
+        this.depVuelto = new Deposito<>();
     }
 
     /**
@@ -52,41 +70,30 @@ public class Expendedor {
      * @throws PagoInsuficienteException si al Comprador no le alcanza para pagar el producto
      * @throws NoHayProductoException si no hay suficiente stock del producto que se quiere comprar
      */
-    public Producto comprarProducto(Moneda moneda, TipoProducto tipo) throws PagoIncorrectoException, PagoInsuficienteException, NoHayProductoException {
+    public void comprarProducto(Moneda moneda, TipoProducto tipo) throws PagoIncorrectoException, PagoInsuficienteException, NoHayProductoException {
 
         if (moneda == null) {
              throw new PagoIncorrectoException("Pago incorrecto");
         }
 
         if (moneda.getValor() < tipo.getPrecio()) {
-            depMoneda.add(moneda);
+            depVuelto.add(moneda);
             throw new PagoInsuficienteException("Dinero insuficiente.");
         }
 
-        Producto productoComprado = null;
         switch (tipo) {
-            case COCACOLA:
-                productoComprado = depCoca.get();
-                break;
-            case FANTA:
-                productoComprado = depFanta.get();
-                break;
-            case SPRITE:
-                productoComprado = depSprite.get();
-                break;
-            case SUPER8:
-                productoComprado = depSuper8.get();
-                break;
-            case OREO:
-                productoComprado = depOreo.get();
-                break;
-            case SNICKERS:
-                productoComprado = depSnickers.get();
-                break;
-            default:
+            case COCACOLA -> productoComprado = depCoca.get();
+            case FANTA -> productoComprado = depFanta.get();
+            case SPRITE -> productoComprado = depSprite.get();
+            case SUPER8 -> productoComprado = depSuper8.get();
+            case OREO -> productoComprado = depOreo.get();
+            case SNICKERS -> productoComprado = depSnickers.get();
+            default -> {
                 depMoneda.add(moneda);
                 throw new NoHayProductoException("Tipo de producto no válido");
+            }
         }
+
         if (productoComprado == null){
             depMoneda.add(moneda);
             throw new NoHayProductoException("Sin stock");
@@ -99,7 +106,7 @@ public class Expendedor {
             depMoneda.add(new Moneda100());
         }
 
-        return productoComprado;
+        this.productoComprado = productoComprado;
     }
 
     /**
