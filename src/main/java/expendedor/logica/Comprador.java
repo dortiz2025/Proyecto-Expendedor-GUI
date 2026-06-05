@@ -35,7 +35,22 @@ public class Comprador {
      * @param producto producto adquirido.
      */
     public void recibirProducto(Producto producto){
+        //Aquí se podría generar un sonido como "¡Wow!",
+        // para añadirle dinamismo a la interacción.
         inventario = producto;
     }
 
+    /**
+     * Añade monedas al monedero
+     * @param moneda Moneda que se añadirá
+     */
+    public void addMoneda(Moneda moneda){
+        switch (moneda){
+            case Moneda1500 m -> cantMonedas1500++;
+            case Moneda1000 m -> cantMonedas1000++;
+            case Moneda500 m -> cantMonedas500++;
+            case Moneda100 m -> cantMonedas100++;
+            default -> {}
+        }
+    }
 }
