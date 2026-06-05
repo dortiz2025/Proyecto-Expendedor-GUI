@@ -12,16 +12,16 @@ import expendedor.logica.productos.*;
  */
 public class Comprador {
 
-    /**
-     * Almacena el nombre del producto consumido
-     */
     private String productoConsumido;
 
-    /**
-     * Almacena el vuelto recibido de una compra
-     */
+    //Monedero
+    private int cantMonedas1500;
+    private int cantMonedas1000;
+    private int cantMonedas500;
+    private int cantMonedas100;
 
-    private int vueltoCompra;
+    //Inventario (1 slot)
+    private Producto inventario;
 
     /**
      * Constructor de la clase que simula la compra de un producto
