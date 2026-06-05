@@ -22,7 +22,7 @@ public class Deposito <T> {
     }
 
     /**
-     * Permite a la GUI saber cuántos elementos hay para dibujarlos.
+     * Permite saber cuántos elementos hay en el depósito.
      * @return Cantidad de elementos en el depósito.
      */
     public int size(){
@@ -47,5 +47,18 @@ public class Deposito <T> {
             return null;
         }
         return deposito.removeFirst();
+    }
+
+    /**
+     * Permite obtener la referencia de un objeto
+     * sin sacarlo del depósito.
+     * @param index Índice del elemento.
+     * @return El elemento, o null si el índice es inválido.
+     */
+    public T getItem(int index) {
+        if (index >= 0 && index < deposito.size()) {
+            return deposito.get(index);
+        }
+        return null;
     }
 }
