@@ -62,6 +62,19 @@ public class Expendedor {
     }
 
     /**
+     * Permite conocer el saldo ingresado hasta el momento
+     * sin procesar la compra ni sacar las monedas.
+     * @return Saldo total ingresado y disponible para comprar.
+     */
+    public int getSaldo() {
+        int saldo = 0;
+        for (int i = 0; i < depSaldo.size(); i++) { //Usamos size para recorrer depSaldo
+            saldo += depSaldo.getItem(i).getValor(); //Sumamos el valor de cada moneda
+        }
+        return saldo;
+    }
+
+    /**
      * Se simula la compra de un producto.
      * En una compra exitosa se calcula el vuelto en diferentes tipos de monedas.
      * @param tipo constante indica el tipo de producto que se quiere comprar
