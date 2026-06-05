@@ -199,6 +199,14 @@ public class Expendedor {
         return depVuelto.get();//Una por una
     }
 
+    //Getters de depósitos de productos
+    public Deposito<Bebida> getDepCoca() { return depCoca; }
+    public Deposito<Bebida> getDepSprite() { return depSprite; }
+    public  Deposito<Bebida> getDepFanta() { return depFanta; }
+    public Deposito<Dulce> getDepOreo() { return depOreo; }
+    public Deposito<Dulce> getDepSuper8() { return depSuper8; }
+    public Deposito<Dulce> getDepSnickers() { return depSnickers; }
+
     //Metodo interno que calcula eficientemente cuantas monedas (de diferente tipo) suman cierto monto.
     private List<Moneda> calcularMonedas(int monto) {
         int[] valores = {1500, 1000, 500, 100}; //Lista auxiliar (Monedas mayor a menor)
