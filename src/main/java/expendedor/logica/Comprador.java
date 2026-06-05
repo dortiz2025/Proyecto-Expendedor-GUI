@@ -68,6 +68,14 @@ public class Comprador {
     }
 
     /**
+     * Permite añadir un producto al inventario
+     * @param producto producto adquirido.
+     */
+    public void recibirProducto(Producto producto){
+        inventario = producto;
+    }
+
+    /**
      * Metodo que simula ver el vuelto recibido
      *
      * @return Devuelve el vuelto recibido
