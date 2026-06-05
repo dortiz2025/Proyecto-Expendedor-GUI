@@ -22,9 +22,9 @@ public class Expendedor {
     private Producto ProductoComprado; //Espacio Único
 
     //Depósitos de monedas
-    private final Deposito<Moneda> depSaldo;//Monedas Ingresadas antes de comprarProducto
-    private final List<Deposito<Moneda>> depGanancias;
-    private final Deposito<Moneda> depVuelto;
+    private final Deposito<Moneda> depSaldo; //Monedas Ingresadas antes de comprarProducto
+    private final List<Deposito<Moneda>> depGanancias; //Depósito de ganancias
+    private final Deposito<Moneda> depVuelto; //Depósito del vuelto
 
     //Variables que almacenan datos importantes...
 
@@ -206,6 +206,10 @@ public class Expendedor {
     public Deposito<Dulce> getDepOreo() { return depOreo; }
     public Deposito<Dulce> getDepSuper8() { return depSuper8; }
     public Deposito<Dulce> getDepSnickers() { return depSnickers; }
+
+    //Getter de depósitos de monedas
+    public List<Deposito<Moneda>> getDepGanancias() { return depGanancias; }
+    public Deposito<Moneda> getDepVuelto() { return depVuelto;}
 
     //Metodo interno que calcula eficientemente cuantas monedas (de diferente tipo) suman cierto monto.
     private List<Moneda> calcularMonedas(int monto) {
