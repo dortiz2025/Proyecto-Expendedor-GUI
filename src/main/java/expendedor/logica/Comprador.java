@@ -1,6 +1,5 @@
 package expendedor.logica;
 
-import expendedor.logica.excepciones.*;
 import expendedor.logica.monedas.*;
 import expendedor.logica.productos.*;
 
@@ -23,7 +22,7 @@ public class Comprador {
     /**
      * Constructor de la clase comprador.
      */
-    public Comprador(Moneda moneda, TipoProducto producto, Expendedor expendedor) {
+    public Comprador() {
         this.cantMonedas1500 = 5;
         this.cantMonedas1000 = 5;
         this.cantMonedas500 = 4;
@@ -52,7 +51,7 @@ public class Comprador {
             case Moneda100 m -> cantMonedas100++;
             default -> {}
         }
-    },
+    }
 
     /**
      * Consume el producto del inventario.
