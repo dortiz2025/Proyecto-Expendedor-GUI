@@ -59,6 +59,11 @@ public class Comprador {
         };
     }
 
+    /**
+     * Añade una nueva moneda al monedero
+     * dependiendo del valor solicitado.
+     * @param valor Valor de la nueva moneda.
+     */
     public void generarMoneda(int valor){
         switch (valor) {
             case 1500 -> this.monedero.get(0).add(new Moneda1500());
