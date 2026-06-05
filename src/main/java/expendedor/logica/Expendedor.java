@@ -22,9 +22,9 @@ public class Expendedor {
     private Producto ProductoComprado; //Espacio Único
 
     //Depósitos de monedas
-    private final Deposito<Moneda> depSaldo;//Monedas Ingresadas antes de comprarProducto
-    private final List<Deposito<Moneda>> depGanancias;
-    private final Deposito<Moneda> depVuelto;
+    private final Deposito<Moneda> depSaldo; //Monedas Ingresadas antes de comprarProducto
+    private final List<Deposito<Moneda>> depGanancias; //Depósito de ganancias
+    private final Deposito<Moneda> depVuelto; //Depósito del vuelto
 
     //Variables que almacenan datos importantes...
 
@@ -59,6 +59,43 @@ public class Expendedor {
             depGanancias.add(new Deposito<>());
         }
         this.depVuelto = new Deposito<>();
+    }
+
+    /**
+     * Insertar monedas al saldo de la expendedora.
+     * @param moneda moneda para sumar al saldo
+     * @throws PagoIncorrectoException si se ingresa una moneda falsa (nula)
+     */
+    public void insertarMoneda(Moneda moneda) throws PagoIncorrectoException {
+        if (moneda == null) {
+            throw new PagoIncorrectoException("No puede ingresar una moneda falsa (nula)");//Excepción Inútil
+        }
+        depSaldo.add(moneda);
+    }
+
+    /**
+     * Permite conocer el saldo ingresado hasta el momento
+     * sin procesar la compra ni sacar las monedas.
+     * @return Saldo total ingresado y disponible para comprar.
+     */
+    public int getSaldo() {
+        int saldo = 0;
+        for (int i = 0; i < depSaldo.size(); i++) { //Usamos size para recorrer depSaldo
+            saldo += depSaldo.getItem(i).getValor(); //Sumamos el valor de cada moneda
+        }
+        return saldo;
+    }
+
+    /**
+     * Cancela un intento de compra
+     * antes de haber hecho buy.
+     * Las monedas caen en el depósito de vuelto.
+     */
+    public void cancel(){
+        Moneda moneda; //Auxiliar para enviar monedas a depVuelto
+        while ((moneda = depSaldo.get()) != null) {
+            depVuelto.add(moneda);
+        }
     }
 
     /**
@@ -145,18 +182,6 @@ public class Expendedor {
     }
 
     /**
-     * Insertar monedas al saldo de la expendedora.
-     * @param moneda moneda para sumar al saldo
-     * @throws PagoIncorrectoException si se ingresa una moneda falsa (nula)
-     */
-    public void insertarMoneda(Moneda moneda) throws PagoIncorrectoException {
-        if (moneda == null) {
-            throw new PagoIncorrectoException("No puede ingresar una moneda falsa (nula)");//Excepción Inútil
-        }
-        depSaldo.add(moneda);
-    }
-
-    /**
      * Sacar producto comprado.
      * @return producto comprado
      */
@@ -173,6 +198,18 @@ public class Expendedor {
     public Moneda getVuelto() {
         return depVuelto.get();//Una por una
     }
+
+    //Getters de depósitos de productos
+    public Deposito<Bebida> getDepCoca() { return depCoca; }
+    public Deposito<Bebida> getDepSprite() { return depSprite; }
+    public  Deposito<Bebida> getDepFanta() { return depFanta; }
+    public Deposito<Dulce> getDepOreo() { return depOreo; }
+    public Deposito<Dulce> getDepSuper8() { return depSuper8; }
+    public Deposito<Dulce> getDepSnickers() { return depSnickers; }
+
+    //Getter de depósitos de monedas
+    public List<Deposito<Moneda>> getDepGanancias() { return depGanancias; }
+    public Deposito<Moneda> getDepVuelto() { return depVuelto;}
 
     //Metodo interno que calcula eficientemente cuantas monedas (de diferente tipo) suman cierto monto.
     private List<Moneda> calcularMonedas(int monto) {
