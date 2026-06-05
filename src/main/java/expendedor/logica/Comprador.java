@@ -3,6 +3,9 @@ package expendedor.logica;
 import expendedor.logica.monedas.*;
 import expendedor.logica.productos.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Clase que simula ser una persona
  * que compra un producto y lo consume.
@@ -11,10 +14,7 @@ import expendedor.logica.productos.*;
  */
 public class Comprador {
     //Monedero
-    private int cantMonedas1500;
-    private int cantMonedas1000;
-    private int cantMonedas500;
-    private int cantMonedas100;
+    private List<Deposito<Moneda>> monedero;
 
     //Inventario (1 slot)
     private Producto inventario;
@@ -23,10 +23,11 @@ public class Comprador {
      * Constructor de la clase comprador.
      */
     public Comprador() {
-        this.cantMonedas1500 = 5;
-        this.cantMonedas1000 = 5;
-        this.cantMonedas500 = 4;
-        this.cantMonedas100 = 10;
+        //Inicializa el monedero
+        this.monedero = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            monedero.add(new Deposito<>());
+        }
     }
 
     /**
@@ -44,11 +45,11 @@ public class Comprador {
      * @param moneda Moneda que se añadirá
      */
     public void addMoneda(Moneda moneda){
-        switch (moneda){
-            case Moneda1500 m -> cantMonedas1500++;
-            case Moneda1000 m -> cantMonedas1000++;
-            case Moneda500 m -> cantMonedas500++;
-            case Moneda100 m -> cantMonedas100++;
+        switch (moneda.getValor()) {
+            case 1500 -> monedero.get(0).add(moneda);
+            case 1000 -> monedero.get(1).add(moneda);
+            case 500 -> monedero.get(2).add(moneda);
+            case 100 -> monedero.get(3).add(moneda);
             default -> {}
         }
     }
