@@ -26,7 +26,7 @@ public class Comprador {
         //Inicializa el monedero
         this.monedero = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
-            monedero.add(new Deposito<>());
+            this.monedero.add(new Deposito<>());
         }
     }
 
@@ -34,7 +34,7 @@ public class Comprador {
      * Recibe monedas y las guarda en el monedero.
      * @param moneda Moneda recibida.
      */
-    public void addMoneda(Moneda moneda){
+    public void recibirMoneda(Moneda moneda){
         switch (moneda.getValor()) {
             case 1500 -> monedero.get(0).add(moneda);
             case 1000 -> monedero.get(1).add(moneda);
@@ -51,12 +51,21 @@ public class Comprador {
      */
     public Moneda getMoneda(int valor){
         return switch (valor) {
-            case 1500 -> monedero.get(0).get();
-            case 1000 -> monedero.get(1).get();
-            case 500 -> monedero.get(2).get();
-            case 100 -> monedero.get(3).get();
+            case 1500 -> this.monedero.get(0).get();
+            case 1000 -> this.monedero.get(1).get();
+            case 500 -> this.monedero.get(2).get();
+            case 100 -> this.monedero.get(3).get();
             default -> null;
         };
+    }
+
+    public void generarMoneda(int valor){
+        switch (valor) {
+            case 1500 -> this.monedero.get(0).add(new Moneda1500());
+            case 1000 -> this.monedero.get(1).add(new Moneda1000());
+            case 500 -> this.monedero.get(2).add(new Moneda500());
+            case 100 -> this.monedero.get(3).add(new Moneda100());
+        }
     }
 
     /**
@@ -66,7 +75,7 @@ public class Comprador {
     public void recibirProducto(Producto producto){
         //Aquí se podría generar un sonido como "¡Wow!",
         // para añadirle dinamismo a la interacción.
-        inventario = producto;
+        this.inventario = producto;
     }
 
     /**
@@ -75,7 +84,7 @@ public class Comprador {
     public void consumirProducto(){
         //Aquí se puede generar un sonido dependiendo del producto.
         //Se tendría que modificar consumir() en cada producto.
-        if(inventario != null) {
+        if(this.inventario != null) {
             System.out.println("Se ha consumido un producto: " + this.inventario.consumir());
             this.inventario = null;
         }
@@ -86,6 +95,6 @@ public class Comprador {
      * @return Referencia del monedero.
      */
     public List<Deposito<Moneda>> getMonedero(){
-        return monedero;
+        return this.monedero;
     }
 }
