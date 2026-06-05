@@ -62,6 +62,18 @@ public class Expendedor {
     }
 
     /**
+     * Insertar monedas al saldo de la expendedora.
+     * @param moneda moneda para sumar al saldo
+     * @throws PagoIncorrectoException si se ingresa una moneda falsa (nula)
+     */
+    public void insertarMoneda(Moneda moneda) throws PagoIncorrectoException {
+        if (moneda == null) {
+            throw new PagoIncorrectoException("No puede ingresar una moneda falsa (nula)");//Excepción Inútil
+        }
+        depSaldo.add(moneda);
+    }
+
+    /**
      * Permite conocer el saldo ingresado hasta el momento
      * sin procesar la compra ni sacar las monedas.
      * @return Saldo total ingresado y disponible para comprar.
@@ -72,6 +84,18 @@ public class Expendedor {
             saldo += depSaldo.getItem(i).getValor(); //Sumamos el valor de cada moneda
         }
         return saldo;
+    }
+
+    /**
+     * Cancela un intento de compra
+     * antes de haber hecho buy.
+     * Las monedas caen en el depósito de vuelto.
+     */
+    public void cancel(){
+        Moneda moneda; //Auxiliar para enviar monedas a depVuelto
+        while ((moneda = depSaldo.get()) != null) {
+            depVuelto.add(moneda);
+        }
     }
 
     /**
@@ -155,18 +179,6 @@ public class Expendedor {
 
         //Se deja el producto comprado en su respectivo depósito
         this.ProductoComprado = producto;
-    }
-
-    /**
-     * Insertar monedas al saldo de la expendedora.
-     * @param moneda moneda para sumar al saldo
-     * @throws PagoIncorrectoException si se ingresa una moneda falsa (nula)
-     */
-    public void insertarMoneda(Moneda moneda) throws PagoIncorrectoException {
-        if (moneda == null) {
-            throw new PagoIncorrectoException("No puede ingresar una moneda falsa (nula)");//Excepción Inútil
-        }
-        depSaldo.add(moneda);
     }
 
     /**
