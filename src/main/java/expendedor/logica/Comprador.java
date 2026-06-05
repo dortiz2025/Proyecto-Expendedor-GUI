@@ -31,18 +31,8 @@ public class Comprador {
     }
 
     /**
-     * Permite añadir un producto al inventario.
-     * @param producto producto adquirido.
-     */
-    public void recibirProducto(Producto producto){
-        //Aquí se podría generar un sonido como "¡Wow!",
-        // para añadirle dinamismo a la interacción.
-        inventario = producto;
-    }
-
-    /**
-     * Añade monedas al monedero
-     * @param moneda Moneda que se añadirá
+     * Recibe monedas y las guarda en el monedero.
+     * @param moneda Moneda recibida.
      */
     public void addMoneda(Moneda moneda){
         switch (moneda.getValor()) {
@@ -54,6 +44,11 @@ public class Comprador {
         }
     }
 
+    /**
+     * Entrega una moneda según el valor solicitado.
+     * @param valor Valor de la moneda.
+     * @return Moneda solicitada.
+     */
     public Moneda getMoneda(int valor){
         return switch (valor) {
             case 1500 -> monedero.get(0).get();
@@ -62,6 +57,16 @@ public class Comprador {
             case 100 -> monedero.get(3).get();
             default -> null;
         };
+    }
+
+    /**
+     * Permite añadir un producto al inventario.
+     * @param producto producto adquirido.
+     */
+    public void recibirProducto(Producto producto){
+        //Aquí se podría generar un sonido como "¡Wow!",
+        // para añadirle dinamismo a la interacción.
+        inventario = producto;
     }
 
     /**
@@ -74,5 +79,13 @@ public class Comprador {
             System.out.println("Se ha consumido un producto: " + this.inventario.consumir());
             this.inventario = null;
         }
+    }
+
+    /**
+     * Getter de monedero.
+     * @return Referencia del monedero.
+     */
+    public List<Deposito<Moneda>> getMonedero(){
+        return monedero;
     }
 }
