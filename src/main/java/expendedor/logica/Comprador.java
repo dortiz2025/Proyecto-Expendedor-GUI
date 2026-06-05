@@ -54,6 +54,16 @@ public class Comprador {
         }
     }
 
+    public Moneda getMoneda(int valor){
+        return switch (valor) {
+            case 1500 -> monedero.get(0).get();
+            case 1000 -> monedero.get(1).get();
+            case 500 -> monedero.get(2).get();
+            case 100 -> monedero.get(3).get();
+            default -> null;
+        };
+    }
+
     /**
      * Consume el producto del inventario.
      */
