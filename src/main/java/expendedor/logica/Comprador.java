@@ -52,5 +52,17 @@ public class Comprador {
             case Moneda100 m -> cantMonedas100++;
             default -> {}
         }
+    },
+
+    /**
+     * Consume el producto del inventario.
+     */
+    public void consumirProducto(){
+        //Aquí se puede generar un sonido dependiendo del producto.
+        //Se tendría que modificar consumir() en cada producto.
+        if(inventario != null) {
+            System.out.println("Se ha consumido un producto: " + this.inventario.consumir());
+            this.inventario = null;
+        }
     }
 }
