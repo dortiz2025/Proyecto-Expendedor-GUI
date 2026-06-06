@@ -21,8 +21,12 @@ public class PanelPrincipal extends JPanel {
         this.panelComprador = new PanelComprador(comprador);
         this.panelExpendedor = new PanelExpendedor(expendedor);
 
-        //Fondo gris
-        this.setBackground(Color.GRAY);
+        this.setLayout(null);//Para poder diseñar libremente;
+
+        this.panelComprador.setOpaque(false);
+
+        this.add(this.panelComprador);
+        this.add(this.panelExpendedor);
     }
 
     @Override
