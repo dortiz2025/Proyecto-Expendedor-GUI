@@ -1,7 +1,9 @@
 package expendedor;
 
-public class Main {
-    static void main() {
+import expendedor.gui.Ventana;
 
+public class Main {
+    public static void main(String[] args) {
+        new Ventana();
     }
 }
