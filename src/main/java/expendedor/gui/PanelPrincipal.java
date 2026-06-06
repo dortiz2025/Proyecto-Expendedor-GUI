@@ -28,5 +28,7 @@ public class PanelPrincipal extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        this.panelComprador.paintComponent(g);
+        this.panelExpendedor.paintComponent(g);
     }
 }
