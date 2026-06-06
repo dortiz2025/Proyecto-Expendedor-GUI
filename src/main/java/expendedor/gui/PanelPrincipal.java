@@ -18,8 +18,8 @@ public class PanelPrincipal extends JPanel {
         this.expendedor = new Expendedor(5);
 
         //Inicialización de contenedores gráficos
-        this.panelComprador = new PanelComprador();
-        this.panelExpendedor = new PanelExpendedor();
+        this.panelComprador = new PanelComprador(comprador);
+        this.panelExpendedor = new PanelExpendedor(expendedor);
 
         //Fondo gris
         this.setBackground(Color.GRAY);
