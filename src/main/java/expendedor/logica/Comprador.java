@@ -28,6 +28,16 @@ public class Comprador {
         for (int i = 0; i < 4; i++) {
             this.monedero.add(new Deposito<>());
         }
+        //Añadimos monedas iniciales...
+        int[] cantidadMonedas = {5, 4, 5, 10};
+        int[] valorMonedas = {1500, 1000, 500, 100};
+        // Recorremos los 4 tipos de monedas
+        for (int i = 0; i < cantidadMonedas.length; i++) {
+            // Por cada tipo, generamos la cantidad respectiva
+            for (int j = 0; j < cantidadMonedas[i]; j++) {
+                generarMoneda(valorMonedas[i]);
+            }
+        }
     }
 
     /**
