@@ -32,7 +32,13 @@ public class PanelPrincipal extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        this.panelComprador.paintComponent(g);
-        this.panelExpendedor.paintComponent(g);
+
+        //Dibujamos la pared
+        g.setColor(new Color(113, 146, 190));
+        g.fillRect(0, 0, 600, 350);
+
+        //Dibujamos el piso
+        g.setColor(Color.GRAY);
+        g.fillRect(0, 350, 600, 100);
     }
 }
