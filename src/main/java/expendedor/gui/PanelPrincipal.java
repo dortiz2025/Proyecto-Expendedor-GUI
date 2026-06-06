@@ -23,7 +23,13 @@ public class PanelPrincipal extends JPanel {
 
         this.setLayout(null);//Para poder diseñar libremente;
 
-        this.panelComprador.setOpaque(false);
+        this.panelComprador.setOpaque(false); //Panel comprador transparente
+
+        //Dejamos al panel comprador en toda la ventana...
+        this.panelComprador.setBounds(0, 0, 600, 430);
+
+        //El expendedor lo ubicamos al centro chocando con el piso...
+        this.panelExpendedor.setBounds(175, 20, 250, 300);
 
         this.add(this.panelComprador);
         this.add(this.panelExpendedor);
@@ -39,6 +45,6 @@ public class PanelPrincipal extends JPanel {
 
         //Dibujamos el piso
         g.setColor(Color.GRAY);
-        g.fillRect(0, 350, 600, 100);
+        g.fillRect(0, 320, 600, 100);//Justo debajo de la expendedora
     }
 }
