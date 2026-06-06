@@ -24,4 +24,9 @@ public class PanelPrincipal extends JPanel {
         //Fondo gris
         this.setBackground(Color.GRAY);
     }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+    }
 }
