@@ -2,6 +2,9 @@ package expendedor.gui;
 
 import javax.swing.*;
 
+/**
+ * Clase que representa a la ventana sobre la cual se monta el PanelPrincipal
+ */
 public class Ventana extends JFrame {
     public Ventana() {
         this.setTitle("Expendedor Interactivo");

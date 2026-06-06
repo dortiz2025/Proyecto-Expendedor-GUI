@@ -1,4 +1,5 @@
 package expendedor;
+
 import expendedor.gui.Ventana;
 
 public class Main {
