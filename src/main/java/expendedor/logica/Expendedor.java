@@ -36,8 +36,8 @@ public class Expendedor {
     public Expendedor(int cantidadProductos) {
         //Se inicializan los depósitos de productos
         this.depCoca = new Deposito<>();
-        this.depSprite = new Deposito<>();
         this.depFanta = new Deposito<>();
+        this.depSprite = new Deposito<>();
         this.depSuper8 = new Deposito<>();
         this.depOreo = new Deposito<>();
         this.depSnickers = new Deposito<>();
@@ -45,8 +45,8 @@ public class Expendedor {
         //Se agregan productos a los depósitos
         for (int i = 0; i < cantidadProductos; i++) {
             this.depCoca.add(new CocaCola(100 + i));
-            this.depSprite.add(new Sprite(200 + i));
-            this.depFanta.add(new Fanta(300 + i));
+            this.depFanta.add(new Fanta(200 + i));
+            this.depSprite.add(new Sprite(300 + i));
             this.depSuper8.add(new Super8(400 + i));
             this.depOreo.add(new Oreo(500 + i));
             this.depSnickers.add(new Snickers(600 + i));
@@ -185,7 +185,7 @@ public class Expendedor {
      * Sacar producto comprado.
      * @return producto comprado
      */
-    public Producto getProductoComprado() {
+    public Producto retirarProductoComprado() {
         Producto aux = this.ProductoComprado;
         this.ProductoComprado = null; //Dejamos el depósito especial vacío
         return aux;
@@ -195,21 +195,22 @@ public class Expendedor {
      * Sacar las monedas del depósito de vuelto.
      * @return moneda que queda en el depósito
      */
-    public Moneda getVuelto() {
-        return depVuelto.get();//Una por una
+    public Moneda retirarMoneda() {
+        return this.depVuelto.get();//Una por una
     }
 
     //Getters de depósitos de productos
-    public Deposito<Bebida> getDepCoca() { return depCoca; }
-    public Deposito<Bebida> getDepSprite() { return depSprite; }
-    public  Deposito<Bebida> getDepFanta() { return depFanta; }
-    public Deposito<Dulce> getDepOreo() { return depOreo; }
-    public Deposito<Dulce> getDepSuper8() { return depSuper8; }
-    public Deposito<Dulce> getDepSnickers() { return depSnickers; }
+    public Deposito<Bebida> getDepCoca() { return this.depCoca; }
+    public Deposito<Bebida> getDepSprite() { return this.depSprite; }
+    public  Deposito<Bebida> getDepFanta() { return this.depFanta; }
+    public Deposito<Dulce> getDepOreo() { return this.depOreo; }
+    public Deposito<Dulce> getDepSuper8() { return this.depSuper8; }
+    public Deposito<Dulce> getDepSnickers() { return this.depSnickers; }
+    public Producto getProductoComprado() { return this.ProductoComprado; }
 
     //Getter de depósitos de monedas
-    public List<Deposito<Moneda>> getDepGanancias() { return depGanancias; }
-    public Deposito<Moneda> getDepVuelto() { return depVuelto;}
+    public List<Deposito<Moneda>> getDepGanancias() { return this.depGanancias; }
+    public Deposito<Moneda> getDepVuelto() { return this.depVuelto;}
 
     //Metodo interno que calcula eficientemente cuantas monedas (de diferente tipo) suman cierto monto.
     private List<Moneda> calcularMonedas(int monto) {

@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class Comprador {
     //Monedero
-    private List<Deposito<Moneda>> monedero;
+    private final List<Deposito<Moneda>> monedero;
 
     //Inventario (1 slot)
     private Producto inventario;
