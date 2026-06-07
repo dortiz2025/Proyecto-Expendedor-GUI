@@ -57,7 +57,7 @@ public class Expendedor {
         this.depSaldo = new Deposito<>();
         this.depGanancias = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
-            depGanancias.add(new Deposito<>());
+            this.depGanancias.add(new Deposito<>());
         }
         this.depVuelto = new Deposito<>();
         this.depRetiroVuelto = null;
@@ -72,7 +72,7 @@ public class Expendedor {
         if (moneda == null) {
             throw new PagoIncorrectoException("No puede ingresar una moneda falsa (nula)");//Excepción Inútil
         }
-        depSaldo.add(moneda);
+        this.depSaldo.add(moneda);
     }
 
     /**
@@ -82,8 +82,8 @@ public class Expendedor {
      */
     public int getSaldo() {
         int saldo = 0;
-        for (int i = 0; i < depSaldo.size(); i++) { //Usamos size para recorrer depSaldo
-            saldo += depSaldo.getItem(i).getValor(); //Sumamos el valor de cada moneda
+        for (int i = 0; i < this.depSaldo.size(); i++) { //Usamos size para recorrer depSaldo
+            saldo += this.depSaldo.getItem(i).getValor(); //Sumamos el valor de cada moneda
         }
         return saldo;
     }
@@ -94,9 +94,12 @@ public class Expendedor {
      * Las monedas caen en el depósito de vuelto.
      */
     public void cancel(){
+        if(this.depRetiroVuelto == null){
+            this.depRetiroVuelto = this.depSaldo.get();
+        }
         Moneda moneda; //Auxiliar para enviar monedas a depVuelto
-        while ((moneda = depSaldo.get()) != null) {
-            depVuelto.add(moneda);
+        while ((moneda = this.depSaldo.get()) != null) {
+            this.depVuelto.add(moneda);
         }
     }
 
@@ -114,16 +117,18 @@ public class Expendedor {
         Moneda moneda; //Variable auxiliar para ciclos while
 
         //Contamos cuanto dinero entregó el usuario
-        while ((moneda = depSaldo.get()) != null) {
+        while ((moneda = this.depSaldo.get()) != null) {
             saldo += moneda.getValor();
             depTemp.add(moneda);
         }
 
         //Si no le alcanza...
         if (saldo < tipo.getPrecio()) {
-            depRetiroVuelto = depTemp.get(); //Se añade la primera al depósito de retiro (1 slot)
+            if(this.depRetiroVuelto == null) {
+                this.depRetiroVuelto = depTemp.get(); //Se añade la primera al depósito de retiro (1 slot)
+            }
             while((moneda = depTemp.get()) != null) {
-                depVuelto.add(moneda);
+                this.depVuelto.add(moneda);
             }
             throw new PagoInsuficienteException("Dinero insuficiente.");
         }
@@ -131,16 +136,16 @@ public class Expendedor {
         //Se procesa la compra...
         Producto producto;
         switch (tipo) {
-            case COCACOLA -> producto = depCoca.get();
-            case FANTA -> producto = depFanta.get();
-            case SPRITE -> producto = depSprite.get();
-            case SUPER8 -> producto = depSuper8.get();
-            case OREO -> producto = depOreo.get();
-            case SNICKERS -> producto = depSnickers.get();
+            case COCACOLA -> producto = this.depCoca.get();
+            case FANTA -> producto = this.depFanta.get();
+            case SPRITE -> producto = this.depSprite.get();
+            case SUPER8 -> producto = this.depSuper8.get();
+            case OREO -> producto = this.depOreo.get();
+            case SNICKERS -> producto = this.depSnickers.get();
             default -> {
-                depRetiroVuelto = depTemp.get();
+                this.depRetiroVuelto = depTemp.get();
                 while((moneda = depTemp.get()) != null) {
-                    depVuelto.add(moneda);
+                    this.depVuelto.add(moneda);
                 }
                 throw new NoHayProductoException("Tipo de producto no válido");
             }
@@ -148,9 +153,11 @@ public class Expendedor {
 
         //Si no quedaba el producto solicitado...
         if (producto == null){
-            depRetiroVuelto = depTemp.get();
+            if(this.depRetiroVuelto == null) {
+                this.depRetiroVuelto = depTemp.get();
+            }
             while((moneda = depTemp.get()) != null) {
-                depVuelto.add(moneda);
+                this.depVuelto.add(moneda);
             }
             throw new NoHayProductoException("Sin stock");
         }
@@ -161,14 +168,14 @@ public class Expendedor {
         //Se añaden todas las monedas ingresadas a las ganancias.
         if (precioProducto == saldo) {
             while((moneda = depTemp.get()) != null) {
-                addOrdenado(moneda, depGanancias);
+                addOrdenado(moneda, this.depGanancias);
             }
         }
         //Se añaden monedas correspondientes al costo del producto
         else {
             List<Moneda> ganancias = calcularMonedas(precioProducto);
             for(Moneda m : ganancias) {
-                addOrdenado(m, depGanancias);
+                addOrdenado(m, this.depGanancias);
             }
         }
         //--------------------------//
@@ -177,12 +184,15 @@ public class Expendedor {
         int vuelto = saldo - tipo.getPrecio();
         if (vuelto > 0) {
             List<Moneda> monedasVuelto = calcularMonedas(vuelto);
-            depRetiroVuelto = monedasVuelto.getFirst();
-            for(Moneda m : monedasVuelto){
-               depVuelto.add(m);
+            if (!monedasVuelto.isEmpty()) {
+                if(this.depRetiroVuelto == null) {
+                    this.depRetiroVuelto = monedasVuelto.removeFirst();
+                }
+                for(Moneda m : monedasVuelto){
+                    this.depVuelto.add(m);
+                }
             }
         }
-
         //Se deja el producto comprado en su respectivo depósito
         this.ProductoComprado = producto;
     }
@@ -202,7 +212,9 @@ public class Expendedor {
      * @return moneda que queda en el depósito
      */
     public Moneda retirarMoneda() {
-        return this.depVuelto.get();//Una por una
+        Moneda moneda = this.depRetiroVuelto;//Moneda retirada
+        this.depRetiroVuelto = this.depVuelto.get();//Siguiente que cae (puede ser null)
+        return moneda;//Una por una...
     }
 
     //Getters de depósitos de productos
