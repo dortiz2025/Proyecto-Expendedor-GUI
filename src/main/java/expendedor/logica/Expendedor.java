@@ -185,7 +185,7 @@ public class Expendedor {
      * Sacar producto comprado.
      * @return producto comprado
      */
-    public Producto getProductoComprado() {
+    public Producto retirarProductoComprado() {
         Producto aux = this.ProductoComprado;
         this.ProductoComprado = null; //Dejamos el depósito especial vacío
         return aux;
@@ -195,21 +195,22 @@ public class Expendedor {
      * Sacar las monedas del depósito de vuelto.
      * @return moneda que queda en el depósito
      */
-    public Moneda getVuelto() {
-        return depVuelto.get();//Una por una
+    public Moneda retirarMoneda() {
+        return this.depVuelto.get();//Una por una
     }
 
     //Getters de depósitos de productos
-    public Deposito<Bebida> getDepCoca() { return depCoca; }
-    public Deposito<Bebida> getDepSprite() { return depSprite; }
-    public  Deposito<Bebida> getDepFanta() { return depFanta; }
-    public Deposito<Dulce> getDepOreo() { return depOreo; }
-    public Deposito<Dulce> getDepSuper8() { return depSuper8; }
-    public Deposito<Dulce> getDepSnickers() { return depSnickers; }
+    public Deposito<Bebida> getDepCoca() { return this.depCoca; }
+    public Deposito<Bebida> getDepSprite() { return this.depSprite; }
+    public  Deposito<Bebida> getDepFanta() { return this.depFanta; }
+    public Deposito<Dulce> getDepOreo() { return this.depOreo; }
+    public Deposito<Dulce> getDepSuper8() { return this.depSuper8; }
+    public Deposito<Dulce> getDepSnickers() { return this.depSnickers; }
+    public Producto getProductoComprado() { return this.ProductoComprado; }
 
     //Getter de depósitos de monedas
-    public List<Deposito<Moneda>> getDepGanancias() { return depGanancias; }
-    public Deposito<Moneda> getDepVuelto() { return depVuelto;}
+    public List<Deposito<Moneda>> getDepGanancias() { return this.depGanancias; }
+    public Deposito<Moneda> getDepVuelto() { return this.depVuelto;}
 
     //Metodo interno que calcula eficientemente cuantas monedas (de diferente tipo) suman cierto monto.
     private List<Moneda> calcularMonedas(int monto) {

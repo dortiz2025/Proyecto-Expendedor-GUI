@@ -23,6 +23,8 @@ public class PanelDepositoProducto<T> extends JPanel {
     public PanelDepositoProducto(Deposito<T> deposito, Image textura) {
         this.deposito = deposito;
         this.textura = textura;
+        this.setBackground(new Color(230,245,255,200));
+        this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
 
     /**
@@ -32,15 +34,6 @@ public class PanelDepositoProducto<T> extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-
-        //Se dibuja el fondo
-        g.setColor(new Color(230, 245, 255, 200));
-        g.fillRect(0, 0, this.getWidth(), this.getHeight());
-
-        //Se dibuja un borde
-        g.setColor(Color.BLACK);
-        g.drawRect(0, 0, this.getWidth() - 1, this.getHeight() - 1); // Borde negro
-
         //Se dibujan los productos
         if (this.textura != null && this.deposito != null) {
             int cantidad = this.deposito.size();
