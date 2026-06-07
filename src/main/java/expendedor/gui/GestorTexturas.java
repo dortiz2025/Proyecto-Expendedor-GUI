@@ -25,6 +25,10 @@ public class GestorTexturas {
         cargarTextura("Super8");
         cargarTextura("Oreo");
         cargarTextura("Snickers");
+        cargarTextura("Moneda1500");
+        cargarTextura("Moneda1000");
+        cargarTextura("Moneda500");
+        cargarTextura("Moneda100");
         //Aquí se pueden añadir más luego (sprites de monedas, etc.)
     }
 

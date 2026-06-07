@@ -24,11 +24,13 @@ public class PanelPago extends JPanel {
      */
     public PanelPago(Expendedor expendedor) {
         this.expendedor = expendedor;
+        this.setOpaque(false);
         this.setLayout(new GridLayout(8,1));
 
         //Label saldo
         saldo = new JLabel("$0", SwingConstants.LEFT);
-        saldo.setBackground(Color.WHITE);
+        saldo.setBackground(new Color(152, 193, 149));
+        saldo.setOpaque(true);
         saldo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         this.add(saldo);
 
