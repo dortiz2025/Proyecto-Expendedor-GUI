@@ -21,6 +21,7 @@ public class PanelDepositoMoneda extends JPanel {
     public PanelDepositoMoneda(Deposito<Moneda> deposito) {
         this.deposito = deposito;
         this.setBackground(new Color(230,245,255,200));
+        this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         //Activamos la lectura del mouse para ToolTips
         this.setToolTipText("");
