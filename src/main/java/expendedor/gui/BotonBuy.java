@@ -1,6 +1,6 @@
 package expendedor.gui;
 
-import expendedor.gui.excepcionesgráficas.ProductoNoSeleccionadoException;
+import expendedor.gui.excepcionesgraficas.ProductoNoSeleccionadoException;
 
 import javax.swing.*;
 
@@ -8,6 +8,10 @@ import javax.swing.*;
  * Botón buy del expendedor
  */
 public class BotonBuy extends JButton {
+    /**
+     * Se crea el botón.
+     * @param panelPago Referencia del panel para enviar eventos.
+     */
     public BotonBuy(PanelPago panelPago){
         super("Buy");
         this.addActionListener(_ -> {

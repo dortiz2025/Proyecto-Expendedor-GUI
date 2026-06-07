@@ -1,19 +1,27 @@
 package expendedor.gui;
 
-import expendedor.gui.excepcionesgráficas.ProductoNoSeleccionadoException;
+import expendedor.gui.excepcionesgraficas.ProductoNoSeleccionadoException;
 import expendedor.logica.*;
 import expendedor.logica.excepciones.*;
 import expendedor.logica.productos.TipoProducto;
-
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Sub-panel de PanelExpendedor.
+ * Clase que permite organizar el código para el dibujo
+ * y el manejo de eventos en la compra y selección de productos.
+ */
 public class PanelPago extends JPanel {
     private Expendedor expendedor;//Referencia del expendedor
     private TipoProducto tipoProducto;//Guarda un tipo que se ha seleccionado
 
     private JLabel saldo;//Pantalla donde se muestra el saldo ingresado
 
+    /**
+     * Se agregan los botones ordenadamente.
+     * @param expendedor Referencia del expendedor para poder manejar una compra.
+     */
     public PanelPago(Expendedor expendedor) {
         this.expendedor = expendedor;
         this.setLayout(new GridLayout(8,1));
@@ -31,9 +39,14 @@ public class PanelPago extends JPanel {
         }
     }
 
+    /**
+     * Actualiza el saldo en pantalla.
+     * @param g Entorno gráfico.
+     */
     @Override
-    public void paint(Graphics g) {
-        super.paint(g);
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        saldo.setText("$" + expendedor.getSaldo());
     }
 
     /**
@@ -46,11 +59,13 @@ public class PanelPago extends JPanel {
 
     /**
      * Comprar un producto.
+     * @throws ProductoNoSeleccionadoException Excepción inicial al presionar buy.
      */
     public void comprar() throws ProductoNoSeleccionadoException {
         if(this.tipoProducto != null) {
             try {
                 expendedor.comprarProducto(this.tipoProducto);
+                SwingUtilities.getWindowAncestor(this).repaint();
             } catch (PagoInsuficienteException | NoHayProductoException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }

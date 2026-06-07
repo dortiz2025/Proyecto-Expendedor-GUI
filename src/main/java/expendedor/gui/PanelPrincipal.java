@@ -4,6 +4,11 @@ import expendedor.logica.*;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Panel principal que se añade a la ventana.
+ * Dibuja toda la parte visual.
+ * Contiene a sub-paneles que organizan la lógica gráfica.
+ */
 public class PanelPrincipal extends JPanel {
     //Paneles que dividen a nuestra interfaz en 2...
     private PanelComprador panelComprador;
@@ -12,6 +17,11 @@ public class PanelPrincipal extends JPanel {
     private Comprador comprador;
     private Expendedor expendedor;
 
+    /**
+     * Se inicializa el comprador y el expendedor
+     * con su cantidad de productos predefinida.
+     * Se añaden sub-paneles a la clase.
+     */
     public PanelPrincipal() {
         //Inicialización de la lógica
         this.comprador = new Comprador();
@@ -35,6 +45,10 @@ public class PanelPrincipal extends JPanel {
         this.add(this.panelExpendedor);
     }
 
+    /**
+     * Dibuja los componentes de la clase.
+     * @param g Entorno gráfico.
+     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);

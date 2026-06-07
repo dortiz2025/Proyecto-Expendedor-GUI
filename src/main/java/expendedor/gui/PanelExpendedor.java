@@ -5,6 +5,11 @@ import expendedor.logica.Expendedor;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Sub-panel de PanelPrincipal
+ * Clase que dibuja al expendedor, contiene sub-paneles
+ * que permiten organizar el código gráfico.
+ */
 public class PanelExpendedor extends JPanel {
     private Expendedor expendedor;
 
@@ -15,6 +20,10 @@ public class PanelExpendedor extends JPanel {
     private PanelProductoComprado panelProductoComprado;
     private PanelVuelto panelVuelto;
 
+    /**
+     * Se inicializan los sub-paneles y se añaden a la clase.
+     * @param expendedor Referencia del expendedor.
+     */
     public PanelExpendedor(Expendedor expendedor) {
         this.expendedor = expendedor;
         this.setLayout(null); // Diseño libre
@@ -43,6 +52,10 @@ public class PanelExpendedor extends JPanel {
         this.add(panelVuelto);
     }
 
+    /**
+     * Dibuja los componentes del panel.
+     * @param g Entorno gráfico.
+     */
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
