@@ -25,6 +25,7 @@ public class Expendedor {
     private final Deposito<Moneda> depSaldo; //Monedas Ingresadas antes de comprarProducto
     private final List<Deposito<Moneda>> depGanancias; //Depósito de ganancias
     private final Deposito<Moneda> depVuelto; //Depósito del vuelto
+    private Moneda depRetiroVuelto; //Depósito de la primera moneda para retirar
 
     //Variables que almacenan datos importantes...
 
@@ -59,6 +60,7 @@ public class Expendedor {
             depGanancias.add(new Deposito<>());
         }
         this.depVuelto = new Deposito<>();
+        this.depRetiroVuelto = null;
     }
 
     /**
@@ -119,6 +121,7 @@ public class Expendedor {
 
         //Si no le alcanza...
         if (saldo < tipo.getPrecio()) {
+            depRetiroVuelto = depTemp.get(); //Se añade la primera al depósito de retiro (1 slot)
             while((moneda = depTemp.get()) != null) {
                 depVuelto.add(moneda);
             }
@@ -135,6 +138,7 @@ public class Expendedor {
             case OREO -> producto = depOreo.get();
             case SNICKERS -> producto = depSnickers.get();
             default -> {
+                depRetiroVuelto = depTemp.get();
                 while((moneda = depTemp.get()) != null) {
                     depVuelto.add(moneda);
                 }
@@ -144,6 +148,7 @@ public class Expendedor {
 
         //Si no quedaba el producto solicitado...
         if (producto == null){
+            depRetiroVuelto = depTemp.get();
             while((moneda = depTemp.get()) != null) {
                 depVuelto.add(moneda);
             }
@@ -172,6 +177,7 @@ public class Expendedor {
         int vuelto = saldo - tipo.getPrecio();
         if (vuelto > 0) {
             List<Moneda> monedasVuelto = calcularMonedas(vuelto);
+            depRetiroVuelto = monedasVuelto.getFirst();
             for(Moneda m : monedasVuelto){
                depVuelto.add(m);
             }
@@ -211,6 +217,7 @@ public class Expendedor {
     //Getter de depósitos de monedas
     public List<Deposito<Moneda>> getDepGanancias() { return this.depGanancias; }
     public Deposito<Moneda> getDepVuelto() { return this.depVuelto;}
+    public Moneda getDepRetiroVuelto() { return this.depRetiroVuelto;}
 
     //Metodo interno que calcula eficientemente cuantas monedas (de diferente tipo) suman cierto monto.
     private List<Moneda> calcularMonedas(int monto) {
