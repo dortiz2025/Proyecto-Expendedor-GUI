@@ -11,16 +11,16 @@ import java.awt.*;
  * los depósitos de productos.
  * @param <T> Tipo de depósito genérico.
  */
-public class PanelDeposito<T> extends JPanel {
-    private Deposito<T> deposito; //Deposito genérico
-    private Image textura;//Guarda la textura para no cargarla de nuevo
+public class PanelDepositoProducto<T> extends JPanel {
+    private final Deposito<T> deposito; //Deposito genérico
+    private final Image textura;//Guarda la textura para no cargarla de nuevo
 
     /**
      * Se guardan datos necesarios para poder dibujar el depósito.
      * @param deposito Referencia del depósito.
      * @param textura Textura cargada del producto.
      */
-    public PanelDeposito(Deposito<T> deposito, Image textura) {
+    public PanelDepositoProducto(Deposito<T> deposito, Image textura) {
         this.deposito = deposito;
         this.textura = textura;
     }
@@ -42,11 +42,11 @@ public class PanelDeposito<T> extends JPanel {
         g.drawRect(0, 0, this.getWidth() - 1, this.getHeight() - 1); // Borde negro
 
         //Se dibujan los productos
-        if (textura != null && deposito != null) {
-            int cantidad = deposito.size();
+        if (this.textura != null && this.deposito != null) {
+            int cantidad = this.deposito.size();
             for (int i = 0; i < cantidad; i++) {
                 //Se dibuja cada producto encima de otro con posiciones diferentes.
-                g.drawImage(textura, 5 + (i * 10), 5, this);
+                g.drawImage(this.textura, 5 + (i * 10), 5, this);
             }
         }
     }

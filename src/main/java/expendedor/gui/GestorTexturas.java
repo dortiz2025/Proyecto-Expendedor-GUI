@@ -2,6 +2,7 @@ package expendedor.gui;
 
 import javax.swing.ImageIcon;
 import java.awt.Image;
+import java.net.URL;
 import java.util.HashMap;
 
 /**
@@ -11,7 +12,7 @@ import java.util.HashMap;
  */
 public class GestorTexturas {
     private static GestorTexturas instancia; //Única instancia
-    private HashMap<String, Image> texturas; //Texturas cargadas
+    private final HashMap<String, Image> texturas; //Texturas cargadas
 
     //Se cargan las texturas y se guardan con un nombre asociado.
     private GestorTexturas() {
@@ -40,10 +41,12 @@ public class GestorTexturas {
 
     // Metodo interno que carga cada imagen y la añade al hashmap.
     private void cargarTextura(String nombre) {
-        try {
-            Image img = new ImageIcon(getClass().getResource("/texturas/" + nombre + ".png")).getImage();
+        URL url = getClass().getResource("/texturas/" + nombre + ".png");
+
+        if (url != null) {
+            Image img = new ImageIcon(url).getImage();
             texturas.put(nombre, img);
-        } catch (Exception e) {
+        } else {
             System.err.println("No se encontró la textura /texturas/" + nombre + ".png");
         }
     }
