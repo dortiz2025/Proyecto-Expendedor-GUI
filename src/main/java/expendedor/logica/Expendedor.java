@@ -36,8 +36,8 @@ public class Expendedor {
     public Expendedor(int cantidadProductos) {
         //Se inicializan los depósitos de productos
         this.depCoca = new Deposito<>();
-        this.depSprite = new Deposito<>();
         this.depFanta = new Deposito<>();
+        this.depSprite = new Deposito<>();
         this.depSuper8 = new Deposito<>();
         this.depOreo = new Deposito<>();
         this.depSnickers = new Deposito<>();
@@ -45,8 +45,8 @@ public class Expendedor {
         //Se agregan productos a los depósitos
         for (int i = 0; i < cantidadProductos; i++) {
             this.depCoca.add(new CocaCola(100 + i));
-            this.depSprite.add(new Sprite(200 + i));
-            this.depFanta.add(new Fanta(300 + i));
+            this.depFanta.add(new Fanta(200 + i));
+            this.depSprite.add(new Sprite(300 + i));
             this.depSuper8.add(new Super8(400 + i));
             this.depOreo.add(new Oreo(500 + i));
             this.depSnickers.add(new Snickers(600 + i));
