@@ -12,7 +12,7 @@ public class Deposito <T> {
      * Arreglo que almacena elementos de clase T
      * simulando un depósito.
      */
-    private ArrayList<T> deposito;
+    private final ArrayList<T> deposito;
 
     /**
      * Constructor que inicializa el ArrayList.
