@@ -170,22 +170,10 @@ public class Expendedor {
         }
 
         //------COMPRA EXITOSA------//
-        int precioProducto = tipo.getPrecio();
-
-        //Se añaden todas las monedas ingresadas a las ganancias.
-        if (precioProducto == saldo) {
-            while((moneda = depTemp.get()) != null) {
-                addOrdenado(moneda, this.depGanancias);
-            }
+        //las monedas fisicas ingresadas (depTemp) van a las ganancias
+        while((moneda = depTemp.get()) != null) {
+            addOrdenado(moneda, this.depGanancias);
         }
-        //Se añaden monedas correspondientes al costo del producto
-        else {
-            List<Moneda> ganancias = calcularMonedas(precioProducto);
-            for(Moneda m : ganancias) {
-                addOrdenado(m, this.depGanancias);
-            }
-        }
-        //--------------------------//
 
         //VUELTO EN DIFERENTES TIPOS DE MONEDAS
         int vuelto = saldo - tipo.getPrecio();
@@ -202,6 +190,7 @@ public class Expendedor {
         }
         //Se deja el producto comprado en su respectivo depósito
         this.ProductoComprado = producto;
+        //--------------------------//
     }
 
     /**
