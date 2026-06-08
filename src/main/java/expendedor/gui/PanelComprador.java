@@ -1,6 +1,7 @@
 package expendedor.gui;
 
 import expendedor.logica.Comprador;
+import expendedor.logica.Expendedor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +9,10 @@ import java.awt.*;
 public class PanelComprador extends JPanel {
     private Comprador comprador;
 
-    public PanelComprador(Comprador comprador) {
+    private PanelMonedero panelMonedero;
+    private PanelInventario panelInventario;
+
+    public PanelComprador(Comprador comprador, Expendedor expendedor) {
         this.comprador = comprador;
     }
 
