@@ -17,6 +17,13 @@ import java.awt.event.MouseEvent;
  */
 public class PanelMonedero extends JPanel {
     private Comprador comprador;
+    private Expendedor expendedor;
+
+    //Definimos las coordenadas de cada moneda en la ventana.
+    public final int X_M100 = 20,  Y_M100 = 20;
+    public final int X_M500 = 20,  Y_M500 = 50;
+    public final int X_M1000 = 20, Y_M1000 = 80;
+    public final int X_M1500 = 20, Y_M1500 = 110;
 
     public PanelMonedero(Comprador comprador) {
         this.comprador = comprador;//Recibe referencia del comprador
