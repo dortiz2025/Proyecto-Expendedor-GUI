@@ -2,6 +2,7 @@ package expendedor.gui;
 
 import expendedor.logica.Expendedor;
 import expendedor.logica.productos.Producto;
+import expendedor.logica.Comprador;
 
 import javax.swing.*;
 import java.awt.*;
