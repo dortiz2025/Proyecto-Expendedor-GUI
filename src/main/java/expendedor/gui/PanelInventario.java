@@ -14,6 +14,8 @@ public class PanelInventario extends JPanel {
     public PanelInventario(Comprador comprador) {
 
         this.comprador = comprador;
+        this.setOpaque(true);
+
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -24,5 +26,7 @@ public class PanelInventario extends JPanel {
                 }
             }
         });
+
+        this.setBackground(Color.LIGHT_GRAY);
     }
 }
