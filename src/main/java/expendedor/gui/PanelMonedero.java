@@ -7,6 +7,10 @@ import expendedor.logica.excepciones.PagoIncorrectoException;
 import expendedor.logica.monedas.Moneda;
 
 import javax.swing.*;
+import java.awt.*;
+import java.util.List;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * Panel que representa el monedero del comprador.
