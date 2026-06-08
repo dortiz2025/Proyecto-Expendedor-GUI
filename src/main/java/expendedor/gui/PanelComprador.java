@@ -15,6 +15,7 @@ import java.awt.*;
 public class PanelComprador extends JPanel {
     private Comprador comprador;
     private PanelMonedero panelMonedero;
+    private PanelInventario panelInventario;
 
     /**
      * Inicializa el panel del comprador con sus respectivos componentes gráficos.
@@ -48,6 +49,10 @@ public class PanelComprador extends JPanel {
         this.panelMonedero = new PanelMonedero(comprador, expendedor);
         this.panelMonedero.setBounds(10, 10, 150, 380);
         this.add(this.panelMonedero);
+
+        this.panelInventario = new PanelInventario(comprador);
+        this.panelInventario.setBounds(500, 250, 80, 120);
+        this.add(this.panelInventario);
     }
 
     /**

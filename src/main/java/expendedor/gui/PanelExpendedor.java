@@ -59,7 +59,7 @@ public class PanelExpendedor extends JPanel {
 
         //Se definen los tamaños de cada panel de modo que estén ordenados
         //Las coordenadas son relativas a las del expendedor en sí
-        this.panelVitrina.setBounds(15, 10, 130, 305);
+        this.panelVitrina.setBounds(27, 10, 105, 305);
         this.panelPago.setBounds(145, 10, 45, 90);
         this.panelDepositoGanancias.setBounds(148, 122, 40, 55);
         this.panelProductoComprado.setBounds(148, 270, 40, 50);
