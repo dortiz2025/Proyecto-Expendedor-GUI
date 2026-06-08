@@ -25,6 +25,9 @@ public class PanelMonedero extends JPanel {
     public final int X_M1000 = 20, Y_M1000 = 80;
     public final int X_M1500 = 20, Y_M1500 = 110;
 
+    //Definimos el tamaño de las monedas como 25x25 píxeles
+    public final int TAMANO_MONEDA = 25;
+
     public PanelMonedero(Comprador comprador) {
         this.comprador = comprador;//Recibe referencia del comprador
     }
