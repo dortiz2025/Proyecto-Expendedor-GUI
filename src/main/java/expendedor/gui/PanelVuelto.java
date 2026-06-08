@@ -20,7 +20,30 @@ public class PanelVuelto extends JPanel {
         //Añadimos en un lado el depósito de vuelto
         this.add(new PanelDepositoMoneda(expendedor.getDepVuelto()));
         this.add(new PanelRetiroVuelto(expendedor));
+
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                Moneda monedaVuelto = expendedor.getDepVuelto().get();
+
+                if (monedaVuelto != null) {
+                    System.out.println("Retiraste una moneda de: $" + monedaVuelto.getValor());
+
+                    // Devolvemos el valor correspondiente al monedero del comprador
+                    comprador.generarMoneda(monedaVuelto.getValor());
+
+                    // Redibujamos la ventana para reflejar el cambio en ambos paneles inmediatamente
+                    if (SwingUtilities.getWindowAncestor(PanelVuelto.this) != null) {
+                        SwingUtilities.getWindowAncestor(PanelVuelto.this).repaint();
+                    }
+                } else {
+                    System.out.println("No queda vuelto por retirar.");
+                }
+            }
+        });
     }
+
+
 
   @Override
   public void paintComponent(Graphics g) {
