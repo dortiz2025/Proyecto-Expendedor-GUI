@@ -30,7 +30,7 @@ public class PanelVuelto extends JPanel {
                     System.out.println("Retiraste una moneda de: $" + monedaVuelto.getValor());
 
                     // Devolvemos el valor correspondiente al monedero del comprador
-                    comprador.generarMoneda(monedaVuelto.getValor());
+                    comprador.recibirMoneda(monedaVuelto);
 
                     // Redibujamos la ventana para reflejar el cambio en ambos paneles inmediatamente
                     if (SwingUtilities.getWindowAncestor(PanelVuelto.this) != null) {
