@@ -36,10 +36,10 @@ public class PanelPrincipal extends JPanel {
         this.panelComprador.setOpaque(false); //Panel comprador transparente
 
         //Dejamos al panel comprador en toda la ventana...
-        this.panelComprador.setBounds(0, 0, 600, 430);
+        this.panelComprador.setBounds(0, 0, 600, 400);
 
         //El expendedor lo ubicamos al centro chocando con el piso...
-        this.panelExpendedor.setBounds(175, 20, 250, 300);
+        this.panelExpendedor.setBounds(198, 33, 192, 330);
 
         this.add(this.panelComprador);
         this.add(this.panelExpendedor);
