@@ -2,37 +2,58 @@ package expendedor.gui;
 
 import expendedor.logica.Comprador;
 import expendedor.logica.Expendedor;
+import expendedor.logica.productos.TipoProducto;
 
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Sub-panel de PanelPrincipal.
+ * Clase que representa la interfaz del comprador, incluyendo sus acciones
+ * y los botones de selección de productos.
+ */
 public class PanelComprador extends JPanel {
     private Comprador comprador;
-
     private PanelMonedero panelMonedero;
-    private PanelInventario panelInventario;
 
-    public PanelComprador(Comprador comprador, Expendedor expendedor) {
+    /**
+     * Inicializa el panel del comprador con sus respectivos componentes gráficos.
+     * @param comprador Referencia al comprador lógico.
+     * @param expendedor Referencia al expendedor lógico.
+     * @param panelPago Referencia al panel de pago para enviar la selección.
+     */
+    public PanelComprador(Comprador comprador, Expendedor expendedor, PanelPago panelPago) {
         this.comprador = comprador;
 
         this.setLayout(null);
+        this.setOpaque(false);
 
-        this.setBackground(new Color(210, 235, 210));
+        int yPos = 10;
+        int altoBoton = 23;
+        int separacion = 6;
 
-        //Inicializamos los sub-paneles pasándoles la lógica del comprador
+        for(TipoProducto tipo : TipoProducto.values()) {
+            BotonSelector btnColor = new BotonSelector(panelPago, tipo);
+
+            btnColor.setOpaque(false);
+            btnColor.setContentAreaFilled(false);
+            btnColor.setBorderPainted(false);
+            btnColor.setBounds(500, yPos, 80, altoBoton);
+
+            this.add(btnColor);
+
+            yPos += (altoBoton + separacion);
+        }
+
         this.panelMonedero = new PanelMonedero(comprador, expendedor);
-        this.panelInventario = new PanelInventario(comprador);
-
-        //Se deja un espacio vertical para las monedas
-        this.panelMonedero.setBounds(10, 10, 100, 300);
-        //Cuadro para el inventario
-        this.panelInventario.setBounds(460, 50, 99, 99);
-
-        //Añadimos ambos sub-paneles a mostrar
-        this.add(panelMonedero);
-        this.add(panelInventario);
+        this.panelMonedero.setBounds(10, 10, 150, 380);
+        this.add(this.panelMonedero);
     }
 
+    /**
+     * Dibuja los componentes del panel.
+     * @param g Entorno gráfico.
+     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);

@@ -81,4 +81,8 @@ public class PanelExpendedor extends JPanel {
     public void paintComponent(Graphics g){
         super.paintComponent(g);
     }
+
+    public PanelPago getPanelPago() {
+        return this.panelPago;
+    }
 }

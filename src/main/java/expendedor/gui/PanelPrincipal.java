@@ -5,12 +5,10 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Panel principal que se añade a la ventana.
- * Dibuja toda la parte visual.
- * Contiene a sub-paneles que organizan la lógica gráfica.
+ * Panel principal que contiene la interfaz gráfica completa.
+ * Gestiona el fondo maestro y agrupa al expendedor y al comprador.
  */
 public class PanelPrincipal extends JPanel {
-    //Paneles que dividen a nuestra interfaz en 2...
     private PanelComprador panelComprador;
     private PanelExpendedor panelExpendedor;
 
@@ -18,50 +16,39 @@ public class PanelPrincipal extends JPanel {
     private Expendedor expendedor;
 
     /**
-     * Se inicializa el comprador y el expendedor
-     * con su cantidad de productos predefinida.
-     * Se añaden sub-paneles a la clase.
+     * Constructor que inicializa los componentes lógicos y gráficos.
      */
     public PanelPrincipal() {
-        //Inicialización de la lógica
+        this.setLayout(null);
+
         this.comprador = new Comprador();
         this.expendedor = new Expendedor(5);
 
-        //Inicialización de contenedores gráficos
-        this.panelComprador = new PanelComprador(comprador, expendedor);
         this.panelExpendedor = new PanelExpendedor(expendedor, comprador);
+        this.panelExpendedor.setBounds(198, 35, 195, 350);
 
-        this.setLayout(null);//Para poder diseñar libremente;
-
-        this.panelComprador.setOpaque(false); //Panel comprador transparente
-
-        //Dejamos al panel comprador en toda la ventana...
+        this.panelComprador = new PanelComprador(comprador, expendedor, this.panelExpendedor.getPanelPago());
         this.panelComprador.setBounds(0, 0, 600, 400);
-
-        //El expendedor lo ubicamos al centro chocando con el piso...
-        this.panelExpendedor.setBounds(198, 33, 190, 350);
 
         this.add(this.panelComprador);
         this.add(this.panelExpendedor);
     }
 
     /**
-     * Dibuja los componentes de la clase.
+     * Dibuja la imagen de fondo de la aplicación.
      * @param g Entorno gráfico.
      */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        // Carga la imagen de toda la escena
         Image fondoEscena = GestorTexturas.getInstancia().getTextura("maquina");
 
         if (fondoEscena != null) {
-            // Dibuja la imagen cubriendo toda la ventana (600x400)
             g.drawImage(fondoEscena, 0, 0, this.getWidth(), this.getHeight(), this);
         } else {
             g.setColor(Color.BLACK);
-            g.fillRect(0,0, this.getWidth(), this.getHeight());
+            g.fillRect(0, 0, this.getWidth(), this.getHeight());
         }
     }
 }
