@@ -110,12 +110,19 @@ public class Expendedor {
      * @throws PagoInsuficienteException si al Comprador no le alcanza para pagar el producto
      * @throws NoHayProductoException si no hay suficiente stock del producto que se quiere comprar
      */
-    public void comprarProducto(TipoProducto tipo) throws PagoInsuficienteException, NoHayProductoException {
+    public void comprarProducto(TipoProducto tipo) throws PagoInsuficienteException, NoHayProductoException, ProductoSinRetirarException {
         //Variables temporales
         int saldo = 0; //Saldo del cliente
         Deposito<Moneda> depTemp = new Deposito<>();//Deposito temporal de monedas
         Moneda moneda; //Variable auxiliar para ciclos while
 
+        if (this.getProductoComprado() != null){
+            while (this.depSaldo.size() > 0) {
+                Moneda monedaDevuelta = this.depSaldo.get(); //Sacamos del saldo
+                this.depVuelto.add(monedaDevuelta);          //Lo metemos al vuelto
+            }
+            throw new ProductoSinRetirarException("Por favor, retire el producto del contenedor antes de volver a comprar.");
+        }
         //Contamos cuanto dinero entregó el usuario
         while ((moneda = this.depSaldo.get()) != null) {
             saldo += moneda.getValor();
