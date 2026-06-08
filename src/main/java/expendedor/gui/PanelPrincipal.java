@@ -53,12 +53,15 @@ public class PanelPrincipal extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        //Dibujamos la pared
-        g.setColor(new Color(113, 146, 190));
-        g.fillRect(0, 0, 600, 350);
+        // Carga la imagen de toda la escena
+        Image fondoEscena = GestorTexturas.getInstancia().getTextura("maquina");
 
-        //Dibujamos el piso
-        g.setColor(Color.GRAY);
-        g.fillRect(0, 320, 600, 100);//Justo debajo de la expendedora
+        if (fondoEscena != null) {
+            // Dibuja la imagen cubriendo toda la ventana (600x400)
+            g.drawImage(fondoEscena, 0, 0, this.getWidth(), this.getHeight(), this);
+        } else {
+            g.setColor(Color.BLACK);
+            g.fillRect(0,0, this.getWidth(), this.getHeight());
+        }
     }
 }

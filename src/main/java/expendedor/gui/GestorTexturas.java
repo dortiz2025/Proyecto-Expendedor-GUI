@@ -18,6 +18,8 @@ public class GestorTexturas {
     private GestorTexturas() {
         texturas = new HashMap<>();
 
+        cargarTextura("maquina");
+
         //Cargamos las texturas...
         cargarTextura("CocaCola");
         cargarTextura("Fanta");
