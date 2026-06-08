@@ -71,8 +71,19 @@ public class PanelMonedero extends JPanel {
         dibujarPilaMonedas(g, monedero.get(0).size(), X_M1500, Y_M1500, Color.BLUE, "1500");
     }
 
-    public PanelMonedero(Comprador comprador) {
-        this.comprador = comprador;//Recibe referencia del comprador
+    private void dibujarPilaMonedas(Graphics g, int cantidad, int x, int y, Color color, String texto) {
+        if (cantidad > 0) {
+            g.setColor(color);
+            g.fillOval(x, y, TAMANO_MONEDA, TAMANO_MONEDA);
+            g.setColor(Color.BLACK);
+            g.drawOval(x, y, TAMANO_MONEDA, TAMANO_MONEDA);
+            g.drawString(texto + " (x" + cantidad + ")", x + 30, y + 20);
+        }
+    }
+
+    /**
+     * Este método recibe las coordenadas de un clic y revisa si le atinó a alguna moneda.
+     */
     public Moneda revisarClicMonedas(int clicX, int clicY) {
 
         //Caso click moneda de 100
