@@ -94,6 +94,14 @@ public class Comprador {
     }
 
     /**
+     * Getter del inventario del comprador
+     * @return inventario del comprador
+     */
+    public Producto getInventario() {
+        return this.inventario;
+    }
+
+    /**
      * Consume el producto del inventario.
      */
     public void consumirProducto(){
