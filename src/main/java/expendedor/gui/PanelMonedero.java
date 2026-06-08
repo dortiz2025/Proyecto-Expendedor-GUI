@@ -1,6 +1,10 @@
 package expendedor.gui;
 
 import expendedor.logica.Comprador;
+import expendedor.logica.Deposito;
+import expendedor.logica.Expendedor;
+import expendedor.logica.excepciones.PagoIncorrectoException;
+import expendedor.logica.monedas.Moneda;
 
 import javax.swing.*;
 
