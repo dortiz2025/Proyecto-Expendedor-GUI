@@ -29,6 +29,28 @@ public class PanelProductoComprado extends JPanel {
 
         this.setBackground(Color.GRAY);
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                Producto productoRecibido = expendedor.getProductoComprado();
+
+                if (productoRecibido != null){
+                    System.out.println("¡Producto recogido!");
+                    comprador.recibirProducto(productoRecibido);
+                    expendedor.retirarProductoComprado();
+
+                    if (SwingUtilities.getWindowAncestor(PanelProductoComprado.this) != null) {
+                        SwingUtilities.getWindowAncestor(PanelProductoComprado.this).repaint();
+                    }
+
+                }
+                else{
+                    System.out.println("No hay producto para retirar.");
+
+                }
+            }
+        });
     }
 
     /**
