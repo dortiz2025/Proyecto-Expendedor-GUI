@@ -73,5 +73,33 @@ public class PanelMonedero extends JPanel {
 
     public PanelMonedero(Comprador comprador) {
         this.comprador = comprador;//Recibe referencia del comprador
+    public Moneda revisarClicMonedas(int clicX, int clicY) {
+
+        //Caso click moneda de 100
+        if (clicX >= X_M100 && clicX <= X_M100 + TAMANO_MONEDA &&
+                clicY >= Y_M100 && clicY <= Y_M100 + TAMANO_MONEDA) {
+
+            // Le sacamos la moneda de 100 al Comprador lógico
+            return comprador.getMoneda(100);
+        }
+        //Caso click moneda de 500
+        else if (clicX >= X_M500 && clicX <= X_M500 + TAMANO_MONEDA &&
+                clicY >= Y_M500 && clicY <= Y_M500 + TAMANO_MONEDA) {
+            return comprador.getMoneda(500);
+        }
+        //Caso click moneda de 1000
+        else if (clicX >= X_M1000 && clicX <= X_M1000 + TAMANO_MONEDA &&
+                clicY >= Y_M1000 && clicY <= Y_M1000 + TAMANO_MONEDA) {
+            return comprador.getMoneda(1000);
+        }
+
+        //Caso click moneda de 1500
+        else if (clicX >= X_M1500 && clicX <= X_M1500 + TAMANO_MONEDA &&
+                clicY >= Y_M1500 && clicY <= Y_M1500 + TAMANO_MONEDA) {
+            return comprador.getMoneda(1500);
+        }
+
+        // Si hizo clic en un espacio vacío, no devuelve nada (null)
+        return null;
     }
 }
