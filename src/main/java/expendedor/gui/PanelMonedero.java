@@ -32,6 +32,17 @@ public class PanelMonedero extends JPanel {
         this.expendedor = expendedor;
         this.setOpaque(false); //Hacemos el fondo del panel transparente
     }
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        List<Deposito<Moneda>> monedero = comprador.getMonedero();
+
+        //Dibujamos las monedas si es que hay al menos 1 en su depósito respectivo
+        dibujarPilaMonedas(g, monedero.get(3).size(), X_M100, Y_M100, Color.LIGHT_GRAY, "100");
+        dibujarPilaMonedas(g, monedero.get(2).size(), X_M500, Y_M500, Color.PINK, "500");
+        dibujarPilaMonedas(g, monedero.get(1).size(), X_M1000, Y_M1000, Color.GREEN, "1000");
+        dibujarPilaMonedas(g, monedero.get(0).size(), X_M1500, Y_M1500, Color.BLUE, "1500");
+    }
 
     public PanelMonedero(Comprador comprador) {
         this.comprador = comprador;//Recibe referencia del comprador
