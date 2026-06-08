@@ -1,9 +1,13 @@
 package expendedor.gui;
 
+import expendedor.logica.Comprador;
 import expendedor.logica.Expendedor;
+import expendedor.logica.monedas.Moneda;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class PanelVuelto extends JPanel {
     private Expendedor expendedor;
