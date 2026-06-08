@@ -12,7 +12,7 @@ import java.awt.event.MouseEvent;
 public class PanelVuelto extends JPanel {
     private Expendedor expendedor;
 
-    public PanelVuelto(Expendedor expendedor) {
+    public PanelVuelto(Expendedor expendedor, Comprador comprador) {
         this.expendedor = expendedor;
         this.setOpaque(false);
         this.setLayout(new GridLayout(1,2));
