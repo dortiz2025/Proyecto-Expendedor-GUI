@@ -24,8 +24,10 @@ public class PanelExpendedor extends JPanel {
      * Se inicializan los sub-paneles y se añaden a la clase.
      * @param expendedor Referencia del expendedor.
      */
-    public PanelExpendedor(Expendedor expendedor) {
+    public PanelExpendedor(Expendedor expendedor, Comprador comprador) {
         this.expendedor = expendedor;
+        this.comprador = comprador;
+
         this.setLayout(null); // Diseño libre
         this.setBackground(new Color(0, 75, 115));//Fondo Expendedor
 
@@ -33,8 +35,8 @@ public class PanelExpendedor extends JPanel {
         this.panelVitrina =  new PanelVitrina(expendedor);
         this.panelPago =  new PanelPago(expendedor);
         this.panelDepositoGanancias = new PanelDepositoGanancias(expendedor);
-        this.panelProductoComprado = new PanelProductoComprado(expendedor);
-        this.panelVuelto = new PanelVuelto(expendedor);
+        this.panelProductoComprado = new PanelProductoComprado(expendedor, comprador);
+        this.panelVuelto = new PanelVuelto(expendedor, comprador);
 
         //Se definen los tamaños de cada panel de modo que estén ordenados
         //Las coordenadas son relativas a las del expendedor en sí
