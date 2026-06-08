@@ -27,11 +27,38 @@ public class PanelMonedero extends JPanel {
 
     //Definimos el tamaño de las monedas como 25x25 píxeles
     public final int TAMANO_MONEDA = 25;
+
     public PanelMonedero(Comprador comprador, Expendedor expendedor) {
         this.comprador = comprador;
         this.expendedor = expendedor;
         this.setOpaque(false); //Hacemos el fondo del panel transparente
+
+        //Agregamos el listener del mouse para poder clickear sobre las monedas
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                //Vemos donde ocurrió el click
+                Moneda monedaSacada = revisarClicMonedas(e.getX(), e.getY());
+
+                if (monedaSacada != null) {
+                    System.out.println("Sacaste una moneda de $" + monedaSacada.getValor() + " e ingresó al expendedor.");
+
+                    //Se la entregamos a la máquina expendedora
+                    try {
+                        expendedor.insertarMoneda(monedaSacada);
+                    } catch (PagoIncorrectoException ex) {
+                        throw new RuntimeException(ex);
+                    }
+
+                    //Redibujamos todo el panel
+                    if (SwingUtilities.getWindowAncestor(PanelMonedero.this) != null) {
+                        SwingUtilities.getWindowAncestor(PanelMonedero.this).repaint();
+                    }
+                }
+            }
+        });
     }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
