@@ -39,7 +39,7 @@ public class PanelPrincipal extends JPanel {
         this.panelComprador.setBounds(0, 0, 600, 400);
 
         //El expendedor lo ubicamos al centro chocando con el piso...
-        this.panelExpendedor.setBounds(198, 33, 192, 330);
+        this.panelExpendedor.setBounds(198, 33, 190, 350);
 
         this.add(this.panelComprador);
         this.add(this.panelExpendedor);

@@ -25,20 +25,31 @@ public class PanelPago extends JPanel {
     public PanelPago(Expendedor expendedor) {
         this.expendedor = expendedor;
         this.setOpaque(false);
-        this.setLayout(new GridLayout(8,1));
 
-        //Label saldo
-        saldo = new JLabel("$0", SwingConstants.LEFT);
+        // 1. Usamos diseño libre absoluto
+        this.setLayout(null);
+        int anchoCajaVerde = 50;
+
+        int anchoSaldo = 40; //
+        int xSaldo = (anchoCajaVerde - anchoSaldo) / 2;
+
+        saldo = new JLabel("$0", SwingConstants.CENTER); // Cambiado a CENTER para que el texto esté centrado adentro
         saldo.setBackground(new Color(152, 193, 149));
         saldo.setOpaque(true);
         saldo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        saldo.setBounds(xSaldo-3, 70, anchoSaldo, 25);
         this.add(saldo);
 
-        add(new BotonBuy(this));
+        //Centrar buy
+        int anchoBuy = 42;
+        int xBuy = (anchoCajaVerde - anchoBuy) / 2;
 
-        for(TipoProducto tipo : TipoProducto.values()) {
-            add(new BotonSelector(this, tipo));
-        }
+        BotonBuy btnBuy = new BotonBuy(this);
+        btnBuy.setOpaque(false);
+        btnBuy.setContentAreaFilled(false);
+        btnBuy.setBorderPainted(true);
+        btnBuy.setBounds(xBuy, 15, anchoBuy, 16);
+        this.add(btnBuy);
     }
 
     /**

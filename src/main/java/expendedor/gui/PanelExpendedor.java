@@ -43,13 +43,27 @@ public class PanelExpendedor extends JPanel {
         this.panelProductoComprado = new PanelProductoComprado(expendedor, comprador);
         this.panelVuelto = new PanelVuelto(expendedor, comprador);
 
+        // Hacerlos transparentes
+        this.panelVitrina.setOpaque(false);
+        this.panelPago.setOpaque(false);
+        this.panelDepositoGanancias.setOpaque(false);
+        this.panelProductoComprado.setOpaque(false);
+        this.panelVuelto.setOpaque(false);
+
+        // Bordes de colores neón para calibrar
+        this.panelVitrina.setBorder(BorderFactory.createLineBorder(Color.BLUE, 2)); // Vidrio de productos
+        this.panelPago.setBorder(BorderFactory.createLineBorder(Color.GREEN, 2)); // Zona de teclado y monedas
+        this.panelDepositoGanancias.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 2)); // Recolector oculto
+        this.panelProductoComprado.setBorder(BorderFactory.createLineBorder(Color.MAGENTA, 2)); // Cajón donde cae la bebida
+        this.panelVuelto.setBorder(BorderFactory.createLineBorder(Color.CYAN, 2)); // Cajita del vuelto
+
         //Se definen los tamaños de cada panel de modo que estén ordenados
         //Las coordenadas son relativas a las del expendedor en sí
-        this.panelVitrina.setBounds(10, 10, 160, 180);
-        this.panelPago.setBounds(180, 10, 60, 180);
-        this.panelDepositoGanancias.setBounds(10, 200, 80, 70);
-        this.panelProductoComprado.setBounds(105, 240, 60, 40);
-        this.panelVuelto.setBounds(180, 200, 60, 70);
+        this.panelVitrina.setBounds(15, 10, 130, 305);
+        this.panelPago.setBounds(145, 10, 45, 90);
+        this.panelDepositoGanancias.setBounds(148, 122, 40, 55);
+        this.panelProductoComprado.setBounds(148, 270, 40, 50);
+        this.panelVuelto.setBounds(148, 215, 40, 42);
 
         //Se añaden al expendedor
         this.add(panelVitrina);
