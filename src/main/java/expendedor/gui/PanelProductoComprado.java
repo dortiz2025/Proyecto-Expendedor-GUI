@@ -16,14 +16,17 @@ import java.awt.event.MouseAdapter;
  */
 public class PanelProductoComprado extends JPanel {
     private Expendedor expendedor;
+    private Comprador comprador;
 
     /**
      * Guarda la referencia del expendedor y
      * define fondo y borde.
      * @param expendedor Referencia del expendedor.
      */
-    public PanelProductoComprado(Expendedor expendedor) {
+    public PanelProductoComprado(Expendedor expendedor, Comprador comprador) {
         this.expendedor = expendedor;
+        this.comprador = comprador;
+
         this.setBackground(Color.GRAY);
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
