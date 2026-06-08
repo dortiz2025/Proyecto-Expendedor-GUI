@@ -27,6 +27,11 @@ public class PanelMonedero extends JPanel {
 
     //Definimos el tamaño de las monedas como 25x25 píxeles
     public final int TAMANO_MONEDA = 25;
+    public PanelMonedero(Comprador comprador, Expendedor expendedor) {
+        this.comprador = comprador;
+        this.expendedor = expendedor;
+        this.setOpaque(false); //Hacemos el fondo del panel transparente
+    }
 
     public PanelMonedero(Comprador comprador) {
         this.comprador = comprador;//Recibe referencia del comprador
