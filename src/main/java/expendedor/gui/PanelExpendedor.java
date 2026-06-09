@@ -7,16 +7,14 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Sub-panel de PanelPrincipal
- * Clase que dibuja al expendedor, contiene sub-paneles
- * que permiten organizar el código gráfico.
+ * Sub-panel de PanelPrincipal.
+ * Clase que dibuja al expendedor y organiza sus sub-paneles internos.
  */
 public class PanelExpendedor extends JPanel {
 
     private Expendedor expendedor;
     private Comprador comprador;
 
-    //Sub-Paneles
     private PanelVitrina panelVitrina;
     private PanelPago panelPago;
     private PanelDepositoGanancias panelDepositoGanancias;
@@ -25,27 +23,24 @@ public class PanelExpendedor extends JPanel {
     private PanelRestock panelRestock;
 
     /**
-     * Se inicializan los sub-paneles y se añaden a la clase.
+     * Inicializa los sub-paneles y los añade al contenedor.
      * @param expendedor Referencia del expendedor.
+     * @param comprador Referencia del comprador.
      */
     public PanelExpendedor(Expendedor expendedor, Comprador comprador) {
         this.expendedor = expendedor;
         this.comprador = comprador;
 
-        this.setLayout(null); // Diseño libre
-        //this.setBackground(new Color(0, 75, 115));//Fondo Expendedor
+        this.setLayout(null);
+        this.setOpaque(false);
 
-        this.setOpaque(false); //Lo hace invisible
-
-        //Se inicializan los sub-paneles
-        this.panelVitrina =  new PanelVitrina(expendedor);
-        this.panelPago =  new PanelPago(expendedor);
+        this.panelVitrina = new PanelVitrina(expendedor);
+        this.panelPago = new PanelPago(expendedor);
         this.panelDepositoGanancias = new PanelDepositoGanancias(expendedor);
         this.panelProductoComprado = new PanelProductoComprado(expendedor, comprador);
         this.panelVuelto = new PanelVuelto(expendedor, comprador);
         this.panelRestock = new PanelRestock(expendedor);
 
-        // Hacerlos transparentes
         this.panelVitrina.setOpaque(false);
         this.panelPago.setOpaque(false);
         this.panelDepositoGanancias.setOpaque(false);
@@ -53,23 +48,13 @@ public class PanelExpendedor extends JPanel {
         this.panelVuelto.setOpaque(false);
         this.panelRestock.setOpaque(false);
 
-        // Bordes de colores neón para calibrar
-        //this.panelVitrina.setBorder(BorderFactory.createLineBorder(Color.BLUE, 2)); // Vidrio de productos
-        //this.panelPago.setBorder(BorderFactory.createLineBorder(Color.GREEN, 2)); // Zona de teclado y monedas
-       // this.panelDepositoGanancias.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 2)); // Recolector oculto
-        //this.panelProductoComprado.setBorder(BorderFactory.createLineBorder(Color.MAGENTA, 2)); // Cajón donde cae la bebida
-        //this.panelVuelto.setBorder(BorderFactory.createLineBorder(Color.CYAN, 2)); // Cajita del vuelto
+        this.panelVitrina.setBounds(54, 20, 210, 640);
+        this.panelPago.setBounds(290, 20, 90, 180);
+        this.panelDepositoGanancias.setBounds(296, 244, 80, 110);
+        this.panelProductoComprado.setBounds(296, 540, 80, 100);
+        this.panelVuelto.setBounds(296, 430, 80, 84);
+        this.panelRestock.setBounds(20, 665, 100, 30);
 
-        //Se definen los tamaños de cada panel de modo que estén ordenados
-        //Las coordenadas son relativas a las del expendedor en sí
-        this.panelVitrina.setBounds(54, 20, 210, 640);        // 27*2, 10*2, 105*2, 320*2
-        this.panelPago.setBounds(290, 20, 90, 180);          // 145*2, 10*2, 45*2, 90*2
-        this.panelDepositoGanancias.setBounds(296, 244, 80, 110); // 148*2, 122*2, 40*2, 55*2
-        this.panelProductoComprado.setBounds(296, 540, 80, 100);  // 148*2, 270*2, 40*2, 50*2
-        this.panelVuelto.setBounds(296, 430, 80, 84);        // 148*2, 215*2, 40*2, 42*2
-        this.panelRestock.setBounds(20, 665, 100,30);
-
-        //Se añaden al expendedor
         this.add(panelVitrina);
         this.add(panelPago);
         this.add(panelDepositoGanancias);
@@ -88,6 +73,10 @@ public class PanelExpendedor extends JPanel {
         super.paintComponent(g);
     }
 
+    /**
+     * Obtiene el panel de pago.
+     * @return Referencia al PanelPago instanciado.
+     */
     public PanelPago getPanelPago() {
         return this.panelPago;
     }
