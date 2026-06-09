@@ -20,10 +20,10 @@ public class PanelVitrina extends JPanel {
         this.setOpaque(false);
 
         // Cambiado a 6 filas y 1 columna
-        int separacionVertical = 10;
+        int separacionVertical = 0;
         this.setLayout(new GridLayout(6, 1, 0, separacionVertical));
 
-        int margenSuperior = 5;
+        int margenSuperior = 0;
         int margenIzquierdo = 5;
         int margenInferior = 5;
         int margenDerecho = 5;
