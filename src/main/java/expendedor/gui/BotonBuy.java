@@ -14,7 +14,7 @@ public class BotonBuy extends JButton {
      * @param panelPago Referencia del panel para enviar eventos.
      */
     public BotonBuy(PanelPago panelPago){
-        super("Buy");
+        super("");
         this.addActionListener(_ -> {
             try{
                 panelPago.comprar();

@@ -65,8 +65,8 @@ public class PanelProductoComprado extends JPanel {
             String nombre = producto.getClass().getSimpleName();
             Image textura = GestorTexturas.getInstancia().getTextura(nombre);
 
-            int xCentro = (this.getWidth() - 16) / 2;
-            int yCentro = (this.getHeight() - 32) / 2;
+            int xCentro = (this.getWidth()+25) / 2;
+            int yCentro = (this.getHeight()-20) / 2;
 
             Graphics2D g2d = (Graphics2D) g;
             java.awt.geom.AffineTransform estadoOriginal = g2d.getTransform();

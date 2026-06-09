@@ -41,7 +41,7 @@ public class PanelDepositoMoneda extends JPanel {
 
             //Diámetro de la moneda (sujeto a modificación según el sprite).
             int size = 16;
-            int xCentro = (this.getWidth() - size) / 2;
+            int xCentro = (this.getWidth()) / 2;
 
             for (int i = 0; i < cantidad; i++) {
                 Moneda m = deposito.getItem(i);

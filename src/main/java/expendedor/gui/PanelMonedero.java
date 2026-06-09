@@ -20,13 +20,12 @@ public class PanelMonedero extends JPanel {
     private Expendedor expendedor;
 
     //Definimos las coordenadas de cada moneda en la ventana.
-    public final int X_M100 = 15,  Y_M100 = 15;
-    public final int X_M500 = 15,  Y_M500 = 110;
-    public final int X_M1000 = 15, Y_M1000 = 210;
-    public final int X_M1500 = 15, Y_M1500 = 310;
+    public final int X_M100 = 30,  Y_M100 = 30;   // 15*2, 15*2
+    public final int X_M500 = 30,  Y_M500 = 220;  // 15*2, 110*2
+    public final int X_M1000 = 30, Y_M1000 = 420; // 15*2, 210*2
+    public final int X_M1500 = 30, Y_M1500 = 620; // 15*2, 310*2
 
-    //Definimos el tamaño de las monedas
-    public final int TAMANO_MONEDA = 40;
+    public final int TAMANO_MONEDA = 80; // 40*2
 
     public PanelMonedero(Comprador comprador, Expendedor expendedor) {
         this.comprador = comprador;
@@ -77,7 +76,8 @@ public class PanelMonedero extends JPanel {
 
             // Texto del inventario
             g.setColor(Color.WHITE);
-            g.drawString("x" + cantidad, x+5 + TAMANO_MONEDA + 5, y + (TAMANO_MONEDA / 2));
+            g.setFont(new Font("Arial", Font.BOLD, 24));
+            g.drawString("x" + cantidad, x+10 + TAMANO_MONEDA + 10, y + (TAMANO_MONEDA / 2));
         }
     }
 

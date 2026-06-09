@@ -29,9 +29,9 @@ public class PanelComprador extends JPanel {
         this.setLayout(null);
         this.setOpaque(false);
 
-        int yPos = 10;
-        int altoBoton = 23;
-        int separacion = 6;
+        int yPos = 20; // 10*2
+        int altoBoton = 46; // 23*2
+        int separacion = 13; // 6*2
 
         for(TipoProducto tipo : TipoProducto.values()) {
             BotonSelector btnColor = new BotonSelector(panelPago, tipo);
@@ -39,7 +39,7 @@ public class PanelComprador extends JPanel {
             btnColor.setOpaque(false);
             btnColor.setContentAreaFilled(false);
             btnColor.setBorderPainted(false);
-            btnColor.setBounds(500, yPos, 80, altoBoton);
+            btnColor.setBounds(1010, yPos, 160, altoBoton); // 500*2, 80*2
 
             this.add(btnColor);
 
@@ -47,11 +47,11 @@ public class PanelComprador extends JPanel {
         }
 
         this.panelMonedero = new PanelMonedero(comprador, expendedor);
-        this.panelMonedero.setBounds(10, 10, 150, 380);
+        this.panelMonedero.setBounds(20, 20, 300, 760); // 10*2, 150*2, 380*2
         this.add(this.panelMonedero);
 
         this.panelInventario = new PanelInventario(comprador);
-        this.panelInventario.setBounds(500, 250, 80, 120);
+        this.panelInventario.setBounds(1000, 500, 160, 240); // 500*2, 250*2, 80*2, 120*2
         this.add(this.panelInventario);
     }
 

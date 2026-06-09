@@ -26,10 +26,10 @@ public class PanelPrincipal extends JPanel {
         this.expendedor = new Expendedor(5);
 
         this.panelExpendedor = new PanelExpendedor(expendedor, comprador);
-        this.panelExpendedor.setBounds(198, 35, 195, 350);
+        this.panelExpendedor.setBounds(396, 70, 390, 700); // 198*2, 35*2, 195*2, 350*2
 
         this.panelComprador = new PanelComprador(comprador, expendedor, this.panelExpendedor.getPanelPago());
-        this.panelComprador.setBounds(0, 0, 600, 400);
+        this.panelComprador.setBounds(0, 0, 1200, 800); // 600*2, 400*2
 
         this.add(this.panelComprador);
         this.add(this.panelExpendedor);

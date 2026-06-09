@@ -9,7 +9,7 @@ public class Ventana extends JFrame {
     public Ventana() {
         this.setTitle("Expendedor Interactivo");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(600, 430); //Se suma 30 a nuestro ideal por la barra superior
+        this.setSize(1200, 830); // 800 + 30 de la barrapor la barra superior
         this.setLocationRelativeTo(null); // Centra la ventana en la pantalla
         this.setResizable(false);
 

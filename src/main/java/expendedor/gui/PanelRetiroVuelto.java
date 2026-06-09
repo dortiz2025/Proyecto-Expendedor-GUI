@@ -61,8 +61,8 @@ public class PanelRetiroVuelto extends JPanel {
             Image textura = GestorTexturas.getInstancia().getTextura(nombre);
 
             int size = 16; //Tamaño de la moneda
-            int xCentro = (this.getWidth() - size) / 2;
-            int yCentro = (this.getHeight() - size) / 2;
+            int xCentro = (this.getWidth()-5) / 2;
+            int yCentro = (this.getHeight() + size) / 2;
 
             if (textura != null) {
                 g.drawImage(textura, xCentro, yCentro, size, size, this);

@@ -29,20 +29,20 @@ public class PanelPago extends JPanel {
         this.setOpaque(false);
 
         this.setLayout(null);
-        int anchoCajaVerde = 50;
+        int anchoCajaVerde = 100; // 50*2
 
-        int anchoSaldo = 40; //
+        int anchoSaldo = 80;      // 40*2
         int xSaldo = (anchoCajaVerde - anchoSaldo) / 2;
 
         saldo = new JLabel("$0", SwingConstants.CENTER); // Cambiado a CENTER para que el texto esté centrado adentro
         saldo.setBackground(new Color(152, 193, 149));
         saldo.setOpaque(true);
         saldo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        saldo.setBounds(xSaldo-3, 70, anchoSaldo, 25);
+        saldo.setBounds(xSaldo, 140, anchoSaldo, 50); // 70*2, 25*2
         this.add(saldo);
 
         //Centrar buy
-        int anchoBuy = 42;
+        int anchoBuy = 84; // 42*2
         int xBuy = (anchoCajaVerde - anchoBuy) / 2;
 
         BotonBuy btnBuy = new BotonBuy(this);
@@ -50,7 +50,7 @@ public class PanelPago extends JPanel {
         btnBuy.setFocusPainted(false);
         btnBuy.setOpaque(false);
         btnBuy.setContentAreaFilled(false);
-        btnBuy.setBounds(xBuy, 15, anchoBuy, 16);
+        btnBuy.setBounds(xBuy, 30, anchoBuy, 32); // 15*2, 16*2
 
         btnBuy.addMouseListener(new MouseAdapter() {
             @Override
