@@ -26,7 +26,6 @@ public class PanelPago extends JPanel {
         this.expendedor = expendedor;
         this.setOpaque(false);
 
-        // 1. Usamos diseño libre absoluto
         this.setLayout(null);
         int anchoCajaVerde = 50;
 
@@ -78,6 +77,9 @@ public class PanelPago extends JPanel {
         if(this.tipoProducto != null) {
             try {
                 expendedor.comprarProducto(this.tipoProducto);
+
+                this.tipoProducto = null;
+
                 SwingUtilities.getWindowAncestor(this).repaint();
             } catch (PagoInsuficienteException | NoHayProductoException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -85,5 +87,12 @@ public class PanelPago extends JPanel {
         }else{
             throw new ProductoNoSeleccionadoException("No se ha seleccionado ningún producto.");
         }
+    }
+    /**
+     * Permite saber qué producto está seleccionado actualmente.
+     * @return Tipo de producto seleccionado.
+     */
+    public TipoProducto getTipoProducto() {
+        return this.tipoProducto;
     }
 }
