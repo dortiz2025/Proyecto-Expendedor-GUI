@@ -46,9 +46,10 @@ public class PanelPago extends JPanel {
         int xBuy = (anchoCajaVerde - anchoBuy) / 2;
 
         BotonBuy btnBuy = new BotonBuy(this);
+        btnBuy.setBorderPainted(false);
+        btnBuy.setFocusPainted(false);
         btnBuy.setOpaque(false);
         btnBuy.setContentAreaFilled(false);
-        btnBuy.setBorderPainted(true);
         btnBuy.setBounds(xBuy, 15, anchoBuy, 16);
 
         btnBuy.addMouseListener(new MouseAdapter() {
