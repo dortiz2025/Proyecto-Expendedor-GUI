@@ -216,7 +216,6 @@ public class Expendedor {
         while(this.depSnickers.size() < cantidadMaxima) {
             this.depSnickers.add(new Snickers(600 + depSnickers.size()));
         }
-
     }
 
     /**
