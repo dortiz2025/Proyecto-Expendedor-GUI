@@ -11,38 +11,34 @@ import java.awt.event.MouseEvent;
 
 /**
  * Sub-panel de PanelExpendedor.
- * Clase que permite organizar el código para el dibujo
- * y el manejo de eventos en la compra y selección de productos.
+ * Administra la interfaz de transacciones, mostrando el saldo actual y permitiendo ejecutar compras.
  */
 public class PanelPago extends JPanel {
-    private Expendedor expendedor;//Referencia del expendedor
-    private TipoProducto tipoProducto;//Guarda un tipo que se ha seleccionado
-
-    private JLabel saldo;//Pantalla donde se muestra el saldo ingresado
+    private Expendedor expendedor;
+    private TipoProducto tipoProducto;
+    private JLabel saldo;
 
     /**
-     * Se agregan los botones ordenadamente.
-     * @param expendedor Referencia del expendedor para poder manejar una compra.
+     * Configura el panel de pago, inicializando la pantalla de saldo y el botón de compra.
+     * @param expendedor Referencia al modelo lógico del expendedor.
      */
     public PanelPago(Expendedor expendedor) {
         this.expendedor = expendedor;
         this.setOpaque(false);
-
         this.setLayout(null);
-        int anchoCajaVerde = 100; // 50*2
 
-        int anchoSaldo = 80;      // 40*2
+        int anchoCajaVerde = 100;
+        int anchoSaldo = 80;
         int xSaldo = (anchoCajaVerde - anchoSaldo) / 2;
 
-        saldo = new JLabel("$0", SwingConstants.CENTER); // Cambiado a CENTER para que el texto esté centrado adentro
+        saldo = new JLabel("$0", SwingConstants.CENTER);
         saldo.setBackground(new Color(152, 193, 149));
         saldo.setOpaque(true);
         saldo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        saldo.setBounds(xSaldo, 140, anchoSaldo, 50); // 70*2, 25*2
+        saldo.setBounds(xSaldo, 140, anchoSaldo, 50);
         this.add(saldo);
 
-        //Centrar buy
-        int anchoBuy = 84; // 42*2
+        int anchoBuy = 84;
         int xBuy = (anchoCajaVerde - anchoBuy) / 2;
 
         BotonBuy btnBuy = new BotonBuy(this);
@@ -50,7 +46,7 @@ public class PanelPago extends JPanel {
         btnBuy.setFocusPainted(false);
         btnBuy.setOpaque(false);
         btnBuy.setContentAreaFilled(false);
-        btnBuy.setBounds(xBuy, 30, anchoBuy, 32); // 15*2, 16*2
+        btnBuy.setBounds(xBuy, 30, anchoBuy, 32);
 
         btnBuy.addMouseListener(new MouseAdapter() {
             @Override
@@ -74,7 +70,7 @@ public class PanelPago extends JPanel {
     }
 
     /**
-     * Actualiza el saldo en pantalla.
+     * Actualiza visualmente el saldo en pantalla según los ingresos en la máquina.
      * @param g Entorno gráfico.
      */
     @Override
@@ -84,24 +80,22 @@ public class PanelPago extends JPanel {
     }
 
     /**
-     * Permite seleccionar un producto.
-     * @param tipo tipo de producto seleccionado
+     * Establece el producto que se intentará comprar.
+     * @param tipo Tipo de producto seleccionado.
      */
     public void seleccionarProducto(TipoProducto tipo){
         this.tipoProducto = tipo;
     }
 
     /**
-     * Comprar un producto.
-     * @throws ProductoNoSeleccionadoException Excepción inicial al presionar buy.
+     * Procesa la compra del producto seleccionado.
+     * @throws ProductoNoSeleccionadoException Si se intenta comprar sin elegir un producto previamente.
      */
     public void comprar() throws ProductoNoSeleccionadoException {
         if(this.tipoProducto != null) {
             try {
                 expendedor.comprarProducto(this.tipoProducto);
-
                 this.tipoProducto = null;
-
                 SwingUtilities.getWindowAncestor(this).repaint();
             } catch (PagoInsuficienteException | NoHayProductoException | ProductoSinRetirarException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -110,9 +104,10 @@ public class PanelPago extends JPanel {
             throw new ProductoNoSeleccionadoException("No se ha seleccionado ningún producto.");
         }
     }
+
     /**
-     * Permite saber qué producto está seleccionado actualmente.
-     * @return Tipo de producto seleccionado.
+     * Devuelve el producto seleccionado en el momento.
+     * @return TipoProducto actualmente seleccionado.
      */
     public TipoProducto getTipoProducto() {
         return this.tipoProducto;
