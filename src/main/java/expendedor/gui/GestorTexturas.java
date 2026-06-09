@@ -6,22 +6,18 @@ import java.net.URL;
 import java.util.HashMap;
 
 /**
- * Clase que permite gestionar las texturas.
- * De esta manera no se cargan más de una vez
- * durante la ejecución del programa.
+ * Singleton encargado de gestionar la carga y almacenamiento de texturas.
+ * Previene la recarga múltiple de recursos en tiempo de ejecución.
  */
 public class GestorTexturas {
-    private static GestorTexturas instancia; //Única instancia
-    private final HashMap<String, Image> texturas; //Texturas cargadas
+    private static GestorTexturas instancia;
+    private final HashMap<String, Image> texturas;
 
-    //Se cargan las texturas y se guardan con un nombre asociado.
     private GestorTexturas() {
         texturas = new HashMap<>();
 
         cargarTextura("maquina");
         cargarTextura("maquina_select");
-
-        //Cargamos las texturas...
         cargarTextura("CocaCola");
         cargarTextura("Fanta");
         cargarTextura("Sprite");
@@ -32,12 +28,11 @@ public class GestorTexturas {
         cargarTextura("Moneda1000");
         cargarTextura("Moneda500");
         cargarTextura("Moneda100");
-        //Aquí se pueden añadir más luego (sprites de monedas, etc.)
     }
 
     /**
-     * Metodo global para poder tener acceso a las texturas.
-     * @return Referencia de la única instancia.
+     * Obtiene la única instancia del gestor.
+     * @return Referencia a GestorTexturas.
      */
     public static GestorTexturas getInstancia() {
         if (instancia == null) {
@@ -46,7 +41,10 @@ public class GestorTexturas {
         return instancia;
     }
 
-    // Metodo interno que carga cada imagen y la añade al hashmap.
+    /**
+     * Carga una textura desde los recursos y la asocia a un identificador.
+     * @param nombre Nombre de la textura a cargar.
+     */
     private void cargarTextura(String nombre) {
         URL url = getClass().getResource("/texturas/" + nombre + ".png");
 
@@ -59,9 +57,9 @@ public class GestorTexturas {
     }
 
     /**
-     * Permite acceder a una textura pre-cargada en la ram con su nombre.
-     * @param nombre nombre de la textura.
-     * @return textura de tipo Image solicitada.
+     * Devuelve una textura previamente almacenada.
+     * @param nombre Clave de la textura.
+     * @return Objeto Image correspondiente, o null si no se encuentra.
      */
     public Image getTextura(String nombre) {
         return texturas.get(nombre);
