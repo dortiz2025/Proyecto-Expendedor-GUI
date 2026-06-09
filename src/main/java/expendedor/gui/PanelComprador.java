@@ -9,8 +9,8 @@ import java.awt.*;
 
 /**
  * Sub-panel de PanelPrincipal.
- * Clase que representa la interfaz del comprador, incluyendo sus acciones
- * y los botones de selección de productos.
+ * Clase que representa la interfaz del comprador, agrupando sus acciones
+ * y los botones de selección.
  */
 public class PanelComprador extends JPanel {
     private Comprador comprador;
@@ -18,10 +18,10 @@ public class PanelComprador extends JPanel {
     private PanelInventario panelInventario;
 
     /**
-     * Inicializa el panel del comprador con sus respectivos componentes gráficos.
+     * Inicializa el panel del comprador y posiciona sus componentes.
      * @param comprador Referencia al comprador lógico.
      * @param expendedor Referencia al expendedor lógico.
-     * @param panelPago Referencia al panel de pago para enviar la selección.
+     * @param panelPago Referencia al panel de pago.
      */
     public PanelComprador(Comprador comprador, Expendedor expendedor, PanelPago panelPago) {
         this.comprador = comprador;
@@ -29,9 +29,9 @@ public class PanelComprador extends JPanel {
         this.setLayout(null);
         this.setOpaque(false);
 
-        int yPos = 20; // 10*2
-        int altoBoton = 46; // 23*2
-        int separacion = 13; // 6*2
+        int yPos = 20;
+        int altoBoton = 46;
+        int separacion = 13;
 
         for(TipoProducto tipo : TipoProducto.values()) {
             BotonSelector btnColor = new BotonSelector(panelPago, tipo);
@@ -39,7 +39,7 @@ public class PanelComprador extends JPanel {
             btnColor.setOpaque(false);
             btnColor.setContentAreaFilled(false);
             btnColor.setBorderPainted(false);
-            btnColor.setBounds(1010, yPos, 160, altoBoton); // 500*2, 80*2
+            btnColor.setBounds(1010, yPos, 160, altoBoton);
 
             this.add(btnColor);
 
@@ -47,11 +47,11 @@ public class PanelComprador extends JPanel {
         }
 
         this.panelMonedero = new PanelMonedero(comprador, expendedor);
-        this.panelMonedero.setBounds(20, 20, 300, 760); // 10*2, 150*2, 380*2
+        this.panelMonedero.setBounds(20, 20, 300, 760);
         this.add(this.panelMonedero);
 
         this.panelInventario = new PanelInventario(comprador);
-        this.panelInventario.setBounds(1000, 500, 160, 240); // 500*2, 250*2, 80*2, 120*2
+        this.panelInventario.setBounds(1000, 500, 160, 240);
         this.add(this.panelInventario);
     }
 
