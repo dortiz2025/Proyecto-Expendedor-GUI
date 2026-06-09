@@ -5,7 +5,7 @@ import expendedor.logica.monedas.Moneda;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent; // Añadimos esta importación para leer el ratón
+import java.awt.event.MouseEvent;
 
 /**
  * Sub-panel de PanelDepositoGanancias y PanelVuelto.
@@ -15,20 +15,17 @@ public class PanelDepositoMoneda extends JPanel {
     private final Deposito<Moneda> deposito;
 
     /**
-     * Se guarda la referencia del depósito,
-     * se activa ToolTip y se define el fondo.
-     * @param deposito Referencia del depósito
+     * Inicializa el panel, asocia el depósito y configura el ToolTip.
+     * @param deposito Referencia del depósito.
      */
     public PanelDepositoMoneda(Deposito<Moneda> deposito) {
         this.deposito = deposito;
-
         this.setOpaque(false);
-        //Activamos la lectura del mouse para ToolTips
         this.setToolTipText("");
     }
 
     /**
-     * Dibuja la pila de monedas del depósito hasta 10 como máximo.
+     * Dibuja la pila de monedas del depósito hasta un máximo de 10 unidades.
      * @param g Entorno gráfico.
      */
     @Override
@@ -36,25 +33,19 @@ public class PanelDepositoMoneda extends JPanel {
         super.paintComponent(g);
 
         if (deposito != null) {
-            //Se imprimen un máximo de 10 monedas para no salirnos del espacio asignado.
             int cantidad = Math.min(deposito.size(), 10);
-
-            //Diámetro de la moneda (sujeto a modificación según el sprite).
             int size = 16;
-            int xCentro = (this.getWidth()) / 2;
+            int xCentro = this.getWidth() / 2;
 
             for (int i = 0; i < cantidad; i++) {
                 Moneda m = deposito.getItem(i);
 
                 if (m != null) {
-                    //Traemos la textura cargada que necesitamos.
                     String nombreTextura = m.getClass().getSimpleName();
                     Image textura = GestorTexturas.getInstancia().getTextura(nombreTextura);
 
-                    //Apilamos desde abajo hacia arriba
                     int y = this.getHeight() - size - 2 - i;
 
-                    //Dibujamos la textura si no un círculo ._.
                     if (textura != null) {
                         g.drawImage(textura, xCentro, y, size, size, this);
                     } else {
@@ -69,7 +60,9 @@ public class PanelDepositoMoneda extends JPanel {
     }
 
     /**
-     * Revisa si el ratón está encima de alguna moneda dibujada para mostrar su serie.
+     * Devuelve la serie de la moneda en la posición indicada por el evento del ratón.
+     * @param e Evento del ratón.
+     * @return Serie de la moneda seleccionada, o null si no se encuentra.
      */
     @Override
     public String getToolTipText(MouseEvent e) {
@@ -79,9 +72,7 @@ public class PanelDepositoMoneda extends JPanel {
         int size = 16;
         int xCentro = (this.getWidth() - size) / 2;
 
-        // Si el ratón está en la columna correcta (X)
         if (e.getX() >= xCentro && e.getX() <= xCentro + size) {
-            // Buscamos a cuál moneda le achuntó en altura (Y)
             for (int i = 0; i < cantidad; i++) {
                 int y = this.getHeight() - size - 2 - i;
                 if (e.getY() >= y && e.getY() <= y + size) {
