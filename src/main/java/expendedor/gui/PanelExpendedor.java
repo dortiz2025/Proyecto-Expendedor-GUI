@@ -41,6 +41,7 @@ public class PanelExpendedor extends JPanel {
         this.panelDepositoGanancias = new PanelDepositoGanancias(expendedor);
         this.panelProductoComprado = new PanelProductoComprado(expendedor, comprador);
         this.panelVuelto = new PanelVuelto(expendedor, comprador);
+        this.panelRestock = new PanelRestock(expendedor);
 
         // Hacerlos transparentes
         this.panelVitrina.setOpaque(false);
@@ -48,6 +49,7 @@ public class PanelExpendedor extends JPanel {
         this.panelDepositoGanancias.setOpaque(false);
         this.panelProductoComprado.setOpaque(false);
         this.panelVuelto.setOpaque(false);
+        this.panelRestock.setOPaque(false);
 
         // Bordes de colores neón para calibrar
         //this.panelVitrina.setBorder(BorderFactory.createLineBorder(Color.BLUE, 2)); // Vidrio de productos
