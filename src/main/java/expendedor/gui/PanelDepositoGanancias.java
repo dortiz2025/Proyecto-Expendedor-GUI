@@ -17,10 +17,10 @@ public class PanelDepositoGanancias extends JPanel {
      * Añade los depósitos a la clase.
      * @param expendedor Referencia del expendedor.
      */
-    public  PanelDepositoGanancias(Expendedor expendedor) {
+    public PanelDepositoGanancias(Expendedor expendedor) {
         this.expendedor = expendedor;
         this.setOpaque(false);
-        this.setLayout(new GridLayout(1,4,0,0));
+        this.setLayout(new GridLayout(1, 4, 0, 0));
 
         for (Deposito<Moneda> dep : expendedor.getDepGanancias()){
             this.add(new PanelDepositoMoneda(dep));
