@@ -12,6 +12,7 @@ import java.awt.*;
  * que permiten organizar el código gráfico.
  */
 public class PanelExpendedor extends JPanel {
+
     private Expendedor expendedor;
     private Comprador comprador;
 
@@ -21,6 +22,7 @@ public class PanelExpendedor extends JPanel {
     private PanelDepositoGanancias panelDepositoGanancias;
     private PanelProductoComprado panelProductoComprado;
     private PanelVuelto panelVuelto;
+    private PanelRestock panelRestock;
 
     /**
      * Se inicializan los sub-paneles y se añaden a la clase.
@@ -49,7 +51,7 @@ public class PanelExpendedor extends JPanel {
         this.panelDepositoGanancias.setOpaque(false);
         this.panelProductoComprado.setOpaque(false);
         this.panelVuelto.setOpaque(false);
-        this.panelRestock.setOPaque(false);
+        this.panelRestock.setOpaque(false);
 
         // Bordes de colores neón para calibrar
         //this.panelVitrina.setBorder(BorderFactory.createLineBorder(Color.BLUE, 2)); // Vidrio de productos
@@ -65,6 +67,7 @@ public class PanelExpendedor extends JPanel {
         this.panelDepositoGanancias.setBounds(296, 244, 80, 110); // 148*2, 122*2, 40*2, 55*2
         this.panelProductoComprado.setBounds(296, 540, 80, 100);  // 148*2, 270*2, 40*2, 50*2
         this.panelVuelto.setBounds(296, 430, 80, 84);        // 148*2, 215*2, 40*2, 42*2
+        this.panelRestock.setBounds(20, 665, 100,30);
 
         //Se añaden al expendedor
         this.add(panelVitrina);
@@ -72,6 +75,8 @@ public class PanelExpendedor extends JPanel {
         this.add(panelDepositoGanancias);
         this.add(panelProductoComprado);
         this.add(panelVuelto);
+        this.add(panelRestock);
+        this.setComponentZOrder(panelRestock, 0);
     }
 
     /**
