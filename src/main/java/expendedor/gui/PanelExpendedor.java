@@ -34,7 +34,6 @@ public class PanelExpendedor extends JPanel {
         //this.setBackground(new Color(0, 75, 115));//Fondo Expendedor
 
         this.setOpaque(false); //Lo hace invisible
-        this.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
 
         //Se inicializan los sub-paneles
         this.panelVitrina =  new PanelVitrina(expendedor);

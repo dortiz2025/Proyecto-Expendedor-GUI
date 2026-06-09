@@ -27,8 +27,7 @@ public class PanelProductoComprado extends JPanel {
         this.expendedor = expendedor;
         this.comprador = comprador;
 
-        this.setBackground(Color.GRAY);
-        this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        this.setOpaque(false);
 
         this.addMouseListener(new MouseAdapter() {
             @Override

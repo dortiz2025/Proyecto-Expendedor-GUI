@@ -1,10 +1,13 @@
 package expendedor.gui;
 
+import expendedor.logica.Comprador;
 import expendedor.logica.Expendedor;
 import expendedor.logica.monedas.Moneda;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * Sub-Panel de PanelVuelto
@@ -17,16 +20,33 @@ public class PanelRetiroVuelto extends JPanel {
      * Se guarda la referencia del expendedor
      * y se definen transparencia y fondo.
      * @param expendedor Referencia del expendedor.
+     * @param comprador Referencia del comprador.
      */
-    public PanelRetiroVuelto(Expendedor expendedor) {
+    public PanelRetiroVuelto(Expendedor expendedor, Comprador comprador) {
         this.expendedor = expendedor;
         this.setOpaque(false);
+
+        // El clic pertenece a este cuadrito específico
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // Usamos el método oficial de la lógica para respetar la cascada
+                Moneda monedaVuelto = expendedor.retirarMoneda();
+
+                if (monedaVuelto != null) {
+                    System.out.println("Retiraste una moneda de: $" + monedaVuelto.getValor());
+                    comprador.recibirMoneda(monedaVuelto);
+
+                    if (SwingUtilities.getWindowAncestor(PanelRetiroVuelto.this) != null) {
+                        SwingUtilities.getWindowAncestor(PanelRetiroVuelto.this).repaint();
+                    }
+                } else {
+                    System.out.println("No queda vuelto por retirar.");
+                }
+            }
+        });
     }
 
-    /**
-     * Actualiza la moneda
-     * @param g the <code>Graphics</code> object to protect
-     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -37,8 +57,9 @@ public class PanelRetiroVuelto extends JPanel {
         g.setColor(Color.BLACK);
         g.drawRect((getWidth()-18)/2, 51, 18, 18);
 
-        //Dibujamos la moneda si es que hay una
+        //Dibujamos la moneda si es que hay una atascada en la salida
         Moneda moneda = this.expendedor.getDepRetiroVuelto();
+
         if (moneda != null) {
             String nombre = moneda.getClass().getSimpleName();
             Image textura = GestorTexturas.getInstancia().getTextura(nombre);
@@ -49,7 +70,7 @@ public class PanelRetiroVuelto extends JPanel {
 
             if (textura != null) {
                 g.drawImage(textura, xCentro, yCentro, size, size, this);
-            } else {//Si es que no carga la textura.
+            } else {
                 g.setColor(Color.YELLOW);
                 g.fillOval(xCentro, yCentro, size, size);
                 g.setColor(Color.BLACK);
