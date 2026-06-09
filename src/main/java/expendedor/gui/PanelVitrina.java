@@ -6,20 +6,18 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Clase que representa a la vitrina visual del expendedor.
- * Se encarga de dibujar ordenadamente los productos.
+ * Clase que representa la vitrina visual del expendedor.
+ * Se encarga de mostrar ordenadamente el stock de productos disponibles.
  */
 public class PanelVitrina extends JPanel {
 
     /**
-     * Se cargan las texturas de los productos y se añaden los depósitos.
-     * @param expendedor Referencia del expendedor para poder dibujar
-     * la cantidad exacta de productos.
+     * Configura el layout de la vitrina y añade las instancias gráficas de los depósitos.
+     * @param expendedor Referencia al expendedor lógico.
      */
     public PanelVitrina(Expendedor expendedor) {
         this.setOpaque(false);
 
-        // Cambiado a 6 filas y 1 columna
         int separacionVertical = 0;
         this.setLayout(new GridLayout(6, 1, 0, separacionVertical));
 
