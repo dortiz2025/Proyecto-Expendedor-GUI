@@ -3,6 +3,7 @@ package expendedor.logica;
 import expendedor.logica.excepciones.*;
 import expendedor.logica.monedas.*;
 import expendedor.logica.productos.*;
+import expendedor.logica.Comprador;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -116,6 +117,7 @@ public class Expendedor {
         Deposito<Moneda> depTemp = new Deposito<>();//Deposito temporal de monedas
         Moneda moneda; //Variable auxiliar para ciclos while
 
+
         if (this.getProductoComprado() != null){
             while (this.depSaldo.size() > 0) {
                 Moneda monedaDevuelta = this.depSaldo.get(); //Sacamos del saldo
@@ -123,6 +125,12 @@ public class Expendedor {
             }
             throw new ProductoSinRetirarException("Por favor, retire el producto del contenedor antes de volver a comprar.");
         }
+    //    if (comprador.getInventario() != null){
+    //        while (this.depSaldo.size() > 0) {
+    //            this.depVuelto.add(this.depSaldo.get());
+    //        }
+    //        throw new ProductoSinRetirarException("Por favor, consuma el producto en su inventario para volver a comprar.");
+    //    }
         //Contamos cuanto dinero entregó el usuario
         while ((moneda = this.depSaldo.get()) != null) {
             saldo += moneda.getValor();
