@@ -18,11 +18,28 @@ public class PanelInventario extends JPanel {
     private Comprador comprador;
 
     /**
+     * Inicializa el panel del inventario y configura los eventos de consumo.
+     * @param comprador Referencia al comprador lógico.
+     */
+    public PanelInventario(Comprador comprador) {
+        this.comprador = comprador;
+        this.setOpaque(false);
+
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                Producto productoEnInventario = comprador.getInventario();
+                if (productoEnInventario != null) {
+                    reproducirSonidoConsumo(productoEnInventario);
+                    comprador.consumirProducto();
+                    repaint();
+                }
+            }
+        });
+    }
+
+    /**
      * Reproduce el efecto de sonido adecuado según el tipo de producto.
-     * - Bebida  → sonido de trago/líquido ("bebida")
-     * - Dulce   → sonido de mordisco/crujido ("dulce")
-     * Si el producto no es ninguno de los dos tipos conocidos, no reproduce nada.
-     *
      * @param producto Producto que está a punto de consumirse.
      */
     private void reproducirSonidoConsumo(Producto producto) {
@@ -34,28 +51,6 @@ public class PanelInventario extends JPanel {
             gestor.reproducir("masticar");
         }
     }
-
-    /**
-     * Inicializa el panel del inventario.
-     * @param comprador Referencia al comprador lógico.
-     */
-    public PanelInventario(Comprador comprador) {
-        this.comprador = comprador;
-        this.setOpaque(false);
-
-        this.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                Producto productoEnInventario = comprador.getInventario();
-                if (comprador.getInventario() != null) {
-                    reproducirSonidoConsumo(productoEnInventario);
-                    comprador.consumirProducto();
-                    repaint();
-                }
-            }
-        });
-    }
-
 
     /**
      * Dibuja el inventario y el producto si existe.
