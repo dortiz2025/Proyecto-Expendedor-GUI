@@ -5,6 +5,7 @@ import expendedor.logica.monedas.Moneda;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent; // Añadimos esta importación para leer el ratón
 
 /**
  * Sub-panel de PanelDepositoGanancias y PanelVuelto.
@@ -20,9 +21,8 @@ public class PanelDepositoMoneda extends JPanel {
      */
     public PanelDepositoMoneda(Deposito<Moneda> deposito) {
         this.deposito = deposito;
-        this.setBackground(new Color(230,245,255,200));
-        this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
+        this.setOpaque(false);
         //Activamos la lectura del mouse para ToolTips
         this.setToolTipText("");
     }
@@ -66,5 +66,30 @@ public class PanelDepositoMoneda extends JPanel {
                 }
             }
         }
+    }
+
+    /**
+     * Revisa si el ratón está encima de alguna moneda dibujada para mostrar su serie.
+     */
+    @Override
+    public String getToolTipText(MouseEvent e) {
+        if (deposito == null || deposito.size() == 0) return null;
+
+        int cantidad = Math.min(deposito.size(), 10);
+        int size = 16;
+        int xCentro = (this.getWidth() - size) / 2;
+
+        // Si el ratón está en la columna correcta (X)
+        if (e.getX() >= xCentro && e.getX() <= xCentro + size) {
+            // Buscamos a cuál moneda le achuntó en altura (Y)
+            for (int i = 0; i < cantidad; i++) {
+                int y = this.getHeight() - size - 2 - i;
+                if (e.getY() >= y && e.getY() <= y + size) {
+                    Moneda m = deposito.getItem(i);
+                    if (m != null) return "Serie: " + m.getSerie();
+                }
+            }
+        }
+        return null;
     }
 }

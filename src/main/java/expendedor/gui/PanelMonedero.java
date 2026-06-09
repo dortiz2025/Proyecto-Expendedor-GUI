@@ -32,6 +32,7 @@ public class PanelMonedero extends JPanel {
         this.comprador = comprador;
         this.expendedor = expendedor;
         this.setOpaque(false); //Hacemos el fondo del panel transparente
+        this.setToolTipText("");
 
         //Agregamos el listener del mouse para poder clickear sobre las monedas
         this.addMouseListener(new MouseAdapter() {
@@ -111,5 +112,23 @@ public class PanelMonedero extends JPanel {
 
         // Si hizo clic en un espacio vacío, no devuelve nada (null)
         return null;
+    }
+    @Override
+    public String getToolTipText(MouseEvent e) {
+        int clicX = e.getX();
+        int clicY = e.getY();
+        List<Deposito<Moneda>> monedero = comprador.getMonedero();
+
+        // Revisamos si el cursor está sobre alguna moneda y si hay stock para mostrar la serie
+        if (clicX >= X_M100 && clicX <= X_M100 + TAMANO_MONEDA && clicY >= Y_M100 && clicY <= Y_M100 + TAMANO_MONEDA) {
+            if (monedero.get(3).size() > 0) return "Serie: " + monedero.get(3).getItem(0).getSerie();
+        } else if (clicX >= X_M500 && clicX <= X_M500 + TAMANO_MONEDA && clicY >= Y_M500 && clicY <= Y_M500 + TAMANO_MONEDA) {
+            if (monedero.get(2).size() > 0) return "Serie: " + monedero.get(2).getItem(0).getSerie();
+        } else if (clicX >= X_M1000 && clicX <= X_M1000 + TAMANO_MONEDA && clicY >= Y_M1000 && clicY <= Y_M1000 + TAMANO_MONEDA) {
+            if (monedero.get(1).size() > 0) return "Serie: " + monedero.get(1).getItem(0).getSerie();
+        } else if (clicX >= X_M1500 && clicX <= X_M1500 + TAMANO_MONEDA && clicY >= Y_M1500 && clicY <= Y_M1500 + TAMANO_MONEDA) {
+            if (monedero.get(0).size() > 0) return "Serie: " + monedero.get(0).getItem(0).getSerie();
+        }
+        return null; // Si no está sobre ninguna moneda, no muestra nada
     }
 }

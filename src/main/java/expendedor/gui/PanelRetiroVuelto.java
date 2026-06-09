@@ -26,6 +26,8 @@ public class PanelRetiroVuelto extends JPanel {
         this.expendedor = expendedor;
         this.setOpaque(false);
 
+        this.setToolTipText("");
+
         // El clic pertenece a este cuadrito específico
         this.addMouseListener(new MouseAdapter() {
             @Override
@@ -51,12 +53,6 @@ public class PanelRetiroVuelto extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        //Dibujamos el depósito RetiroVuelto
-        g.setColor(new Color(141, 174, 198));
-        g.fillRect((getWidth()-18)/2, 51, 18, 18);
-        g.setColor(Color.BLACK);
-        g.drawRect((getWidth()-18)/2, 51, 18, 18);
-
         //Dibujamos la moneda si es que hay una atascada en la salida
         Moneda moneda = this.expendedor.getDepRetiroVuelto();
 
@@ -77,5 +73,21 @@ public class PanelRetiroVuelto extends JPanel {
                 g.drawOval(xCentro, yCentro, size, size);
             }
         }
+    }
+
+    /**
+     * Revisa si hay una moneda lista para retirar y muestra su serie.
+     */
+    @Override
+    public String getToolTipText(MouseEvent e) {
+        Moneda moneda = this.expendedor.getDepRetiroVuelto();
+
+        // Como este panel es pequeñito y exclusivo para esta moneda,
+        // si hay moneda, mostramos la serie al tocar cualquier parte de esta zona.
+        if (moneda != null) {
+            return "Serie: " + moneda.getSerie();
+        }
+
+        return null;
     }
 }
