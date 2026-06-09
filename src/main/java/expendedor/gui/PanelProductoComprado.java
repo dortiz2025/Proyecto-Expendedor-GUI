@@ -35,19 +35,19 @@ public class PanelProductoComprado extends JPanel {
             public void mousePressed(MouseEvent e) {
                 Producto productoRecibido = expendedor.getProductoComprado();
 
-                if (productoRecibido != null){
-                    System.out.println("¡Producto recogido!");
-                    comprador.recibirProducto(productoRecibido);
-                    expendedor.retirarProductoComprado();
+                if (productoRecibido != null) {
+                    if (comprador.getInventario() == null) {
+                        comprador.recibirProducto(productoRecibido);
+                        expendedor.retirarProductoComprado();
 
-                    if (SwingUtilities.getWindowAncestor(PanelProductoComprado.this) != null) {
-                        SwingUtilities.getWindowAncestor(PanelProductoComprado.this).repaint();
+                        if (SwingUtilities.getWindowAncestor(PanelProductoComprado.this) != null) {
+                            SwingUtilities.getWindowAncestor(PanelProductoComprado.this).repaint();
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Debes consumir el producto en tu inventario antes de recoger otro.", "Inventario Lleno", JOptionPane.WARNING_MESSAGE);
                     }
-
-                }
-                else{
+                } else {
                     System.out.println("No hay producto para retirar.");
-
                 }
             }
         });
@@ -63,24 +63,17 @@ public class PanelProductoComprado extends JPanel {
         Producto producto = this.expendedor.getProductoComprado();
 
         if (producto != null) {
-            //Se recibe la textura
             String nombre = producto.getClass().getSimpleName();
             Image textura = GestorTexturas.getInstancia().getTextura(nombre);
 
-            //---------Dibujo del producto rotado---------//
-            //Ambos parámetros 16 y 32 se pueden cambiar según los sprites.
-            //Aquí se usan para definir el centro y dibujar bien.
             int xCentro = (this.getWidth() - 16) / 2;
             int yCentro = (this.getHeight() - 32) / 2;
 
-            //Usamos un entorno gráfico avanzado de java para rotar imágenes
             Graphics2D g2d = (Graphics2D) g;
-            //X e Y son el eje de rotación (en este caso el centro de la imágen)
             java.awt.geom.AffineTransform estadoOriginal = g2d.getTransform();
             g2d.rotate(Math.toRadians(90), xCentro + 8, yCentro + 16);
             g2d.drawImage(textura, xCentro, yCentro, this);
-            g2d.setTransform(estadoOriginal);;
+            g2d.setTransform(estadoOriginal);
         }
     }
-
 }
