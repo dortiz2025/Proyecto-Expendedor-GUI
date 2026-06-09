@@ -6,7 +6,7 @@ import java.awt.*;
 
 /**
  * Panel principal que contiene la interfaz gráfica completa.
- * Gestiona el fondo maestro y agrupa al expendedor y al comprador.
+ * Gestiona el fondo de la escena y agrupa los subsistemas del expendedor y el comprador.
  */
 public class PanelPrincipal extends JPanel {
     private PanelComprador panelComprador;
@@ -17,7 +17,7 @@ public class PanelPrincipal extends JPanel {
     private String fondoActual = "maquina";
 
     /**
-     * Constructor que inicializa los componentes lógicos y gráficos.
+     * Constructor que inicializa los componentes lógicos y posiciona los elementos gráficos base.
      */
     public PanelPrincipal() {
         this.setLayout(null);
@@ -26,17 +26,17 @@ public class PanelPrincipal extends JPanel {
         this.expendedor = new Expendedor(5);
 
         this.panelExpendedor = new PanelExpendedor(expendedor, comprador);
-        this.panelExpendedor.setBounds(396, 70, 390, 700); // 198*2, 35*2, 195*2, 350*2
+        this.panelExpendedor.setBounds(396, 70, 390, 700);
 
         this.panelComprador = new PanelComprador(comprador, expendedor, this.panelExpendedor.getPanelPago());
-        this.panelComprador.setBounds(0, 0, 1200, 800); // 600*2, 400*2
+        this.panelComprador.setBounds(0, 0, 1200, 800);
 
         this.add(this.panelComprador);
         this.add(this.panelExpendedor);
     }
 
     /**
-     * Cambia la textura de fondo activa del panel y lo repinta.
+     * Cambia la textura de fondo activa del panel y solicita su repintado.
      * @param textura Nombre de la textura a cargar.
      */
     public void setFondoActivo(String textura) {
