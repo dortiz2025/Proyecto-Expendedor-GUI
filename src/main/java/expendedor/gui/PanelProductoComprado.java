@@ -11,22 +11,20 @@ import java.awt.event.MouseAdapter;
 
 /**
  * Sub-panel de PanelExpendedor.
- * Clase que dibuja el producto comprado y
- * lo rota para mayor dinamismo en el programa.
+ * Representa la bandeja de salida donde cae el producto comprado y gestiona su recolección.
  */
 public class PanelProductoComprado extends JPanel {
     private Expendedor expendedor;
     private Comprador comprador;
 
     /**
-     * Guarda la referencia del expendedor y
-     * define fondo y borde.
-     * @param expendedor Referencia del expendedor.
+     * Configura el área de recolección y su evento de retiro.
+     * @param expendedor Referencia al expendedor lógico.
+     * @param comprador Referencia al comprador lógico.
      */
     public PanelProductoComprado(Expendedor expendedor, Comprador comprador) {
         this.expendedor = expendedor;
         this.comprador = comprador;
-
         this.setOpaque(false);
 
         this.addMouseListener(new MouseAdapter() {
@@ -53,7 +51,7 @@ public class PanelProductoComprado extends JPanel {
     }
 
     /**
-     * Dibuja el producto que ha sido comprado.
+     * Dibuja el producto en el cajón de salida, aplicando una rotación visual.
      * @param g Entorno gráfico.
      */
     @Override
@@ -65,8 +63,8 @@ public class PanelProductoComprado extends JPanel {
             String nombre = producto.getClass().getSimpleName();
             Image textura = GestorTexturas.getInstancia().getTextura(nombre);
 
-            int xCentro = (this.getWidth()+25) / 2;
-            int yCentro = (this.getHeight()-20) / 2;
+            int xCentro = (this.getWidth() + 25) / 2;
+            int yCentro = (this.getHeight() - 20) / 2;
 
             Graphics2D g2d = (Graphics2D) g;
             java.awt.geom.AffineTransform estadoOriginal = g2d.getTransform();
