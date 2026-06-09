@@ -14,6 +14,7 @@ public class PanelPrincipal extends JPanel {
 
     private Comprador comprador;
     private Expendedor expendedor;
+    private String fondoActual = "maquina";
 
     /**
      * Constructor que inicializa los componentes lógicos y gráficos.
@@ -35,6 +36,15 @@ public class PanelPrincipal extends JPanel {
     }
 
     /**
+     * Cambia la textura de fondo activa del panel y lo repinta.
+     * @param textura Nombre de la textura a cargar.
+     */
+    public void setFondoActivo(String textura) {
+        this.fondoActual = textura;
+        this.repaint();
+    }
+
+    /**
      * Dibuja la imagen de fondo de la aplicación.
      * @param g Entorno gráfico.
      */
@@ -42,7 +52,7 @@ public class PanelPrincipal extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        Image fondoEscena = GestorTexturas.getInstancia().getTextura("maquina");
+        Image fondoEscena = GestorTexturas.getInstancia().getTextura(this.fondoActual);
 
         if (fondoEscena != null) {
             g.drawImage(fondoEscena, 0, 0, this.getWidth(), this.getHeight(), this);

@@ -6,6 +6,8 @@ import expendedor.logica.excepciones.*;
 import expendedor.logica.productos.TipoProducto;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * Sub-panel de PanelExpendedor.
@@ -48,6 +50,25 @@ public class PanelPago extends JPanel {
         btnBuy.setContentAreaFilled(false);
         btnBuy.setBorderPainted(true);
         btnBuy.setBounds(xBuy, 15, anchoBuy, 16);
+
+        btnBuy.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                PanelPrincipal principal = (PanelPrincipal) SwingUtilities.getAncestorOfClass(PanelPrincipal.class, btnBuy);
+                if (principal != null) {
+                    principal.setFondoActivo("maquina_select");
+                }
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                PanelPrincipal principal = (PanelPrincipal) SwingUtilities.getAncestorOfClass(PanelPrincipal.class, btnBuy);
+                if (principal != null) {
+                    principal.setFondoActivo("maquina");
+                }
+            }
+        });
+
         this.add(btnBuy);
     }
 
@@ -81,7 +102,7 @@ public class PanelPago extends JPanel {
                 this.tipoProducto = null;
 
                 SwingUtilities.getWindowAncestor(this).repaint();
-            } catch (PagoInsuficienteException | NoHayProductoException e) {
+            } catch (PagoInsuficienteException | NoHayProductoException | ProductoSinRetirarException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }else{
