@@ -6,12 +6,12 @@ import expendedor.logica.excepciones.ProductoSinRetirarException;
 import javax.swing.*;
 
 /**
- * Botón buy del expendedor
+ * Botón de compra del expendedor.
  */
 public class BotonBuy extends JButton {
     /**
-     * Se crea el botón.
-     * @param panelPago Referencia del panel para enviar eventos.
+     * Inicializa el botón y maneja los eventos de compra.
+     * @param panelPago Referencia del panel de pago para procesar transacciones.
      */
     public BotonBuy(PanelPago panelPago){
         super("");
