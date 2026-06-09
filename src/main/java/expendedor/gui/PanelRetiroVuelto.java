@@ -10,29 +10,25 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 /**
- * Sub-Panel de PanelVuelto
- * Clase que dibuja un mini-deposito para retirar el vuelto.
+ * Sub-panel de PanelVuelto.
+ * Representa el área interactiva de donde el comprador recoge las monedas de cambio.
  */
 public class PanelRetiroVuelto extends JPanel {
     private Expendedor expendedor;
 
     /**
-     * Se guarda la referencia del expendedor
-     * y se definen transparencia y fondo.
-     * @param expendedor Referencia del expendedor.
-     * @param comprador Referencia del comprador.
+     * Configura el área de recolección de vuelto y define la acción de retiro.
+     * @param expendedor Referencia al expendedor lógico.
+     * @param comprador Referencia al comprador lógico receptor del vuelto.
      */
     public PanelRetiroVuelto(Expendedor expendedor, Comprador comprador) {
         this.expendedor = expendedor;
         this.setOpaque(false);
-
         this.setToolTipText("");
 
-        // El clic pertenece a este cuadrito específico
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                // Usamos el método oficial de la lógica para respetar la cascada
                 Moneda monedaVuelto = expendedor.retirarMoneda();
 
                 if (monedaVuelto != null) {
@@ -49,19 +45,22 @@ public class PanelRetiroVuelto extends JPanel {
         });
     }
 
+    /**
+     * Dibuja la moneda disponible para retirar en la bandeja de cambio.
+     * @param g Entorno gráfico.
+     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        //Dibujamos la moneda si es que hay una atascada en la salida
         Moneda moneda = this.expendedor.getDepRetiroVuelto();
 
         if (moneda != null) {
             String nombre = moneda.getClass().getSimpleName();
             Image textura = GestorTexturas.getInstancia().getTextura(nombre);
 
-            int size = 16; //Tamaño de la moneda
-            int xCentro = (this.getWidth()-5) / 2;
+            int size = 16;
+            int xCentro = (this.getWidth() - 5) / 2;
             int yCentro = (this.getHeight() + size) / 2;
 
             if (textura != null) {
@@ -76,14 +75,14 @@ public class PanelRetiroVuelto extends JPanel {
     }
 
     /**
-     * Revisa si hay una moneda lista para retirar y muestra su serie.
+     * Muestra el número de serie de la moneda que está lista para ser retirada.
+     * @param e Evento del ratón.
+     * @return El número de serie de la moneda, o null si la bandeja está vacía.
      */
     @Override
     public String getToolTipText(MouseEvent e) {
         Moneda moneda = this.expendedor.getDepRetiroVuelto();
 
-        // Como este panel es pequeñito y exclusivo para esta moneda,
-        // si hay moneda, mostramos la serie al tocar cualquier parte de esta zona.
         if (moneda != null) {
             return "Serie: " + moneda.getSerie();
         }
