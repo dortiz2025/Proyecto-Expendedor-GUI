@@ -10,4 +10,4 @@ Desarrolladores: Martin Ignacio Bastias Neira, Daniel Esteban Ortiz Estrada y Be
 ![expendedor3.jpg](expendedor3.jpg)
 
 
-![uml.png](uml.png)
+![uml.png](uml_README.png)
