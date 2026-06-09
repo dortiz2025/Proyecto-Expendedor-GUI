@@ -194,6 +194,32 @@ public class Expendedor {
     }
 
     /**
+     * Método que rellena el expendedor.
+     * @param cantidadMaxima cantidad máxima de producto
+     */
+    public void Restock(int cantidadMaxima){
+        while(this.depCoca.size() < cantidadMaxima) {
+            this.depCoca.add(new CocaCola(100 + this.depCoca.size()));
+        }
+        while(this.depFanta.size() < cantidadMaxima) {
+            this.depFanta.add(new Fanta(200 + this.depFanta.size()));
+        }
+        while(this.depSprite.size() < cantidadMaxima) {
+            this.depSprite.add(new Sprite(300 + this.depSprite.size()));
+        }
+        while(this.depSuper8.size() < cantidadMaxima) {
+            this.depSuper8.add(new Super8(400 + this.depSuper8.size()));
+        }
+        while(this.depOreo.size() < cantidadMaxima) {
+            this.depOreo.add(new Oreo(500 + this.depOreo.size()));
+        }
+        while(this.depSnickers.size() < cantidadMaxima) {
+            this.depSnickers.add(new Snickers(600 + depSnickers.size()));
+        }
+
+    }
+
+    /**
      * Sacar producto comprado.
      * @return producto comprado
      */
